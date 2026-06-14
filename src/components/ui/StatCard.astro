@@ -1,0 +1,24 @@
+---
+import type { AccentTone, Stat } from '../../config/profile';
+import { toneStyles } from '../../lib/tone';
+
+interface Props {
+  stat: Stat;
+  tone?: AccentTone;
+  delay?: number;
+}
+
+const { stat, tone = 'cyan', delay = 0 } = Astro.props as Props;
+const accent = toneStyles[tone];
+---
+
+<div
+  class="glass-panel rounded-2xl p-4"
+  data-reveal
+  style={`--reveal-delay:${delay}ms`}
+>
+  <div class={`text-3xl font-display font-semibold ${accent.text}`}>
+    {stat.value}
+  </div>
+  <div class="mt-2 text-xs uppercase tracking-[0.28em] text-ink-400">{stat.label}</div>
+</div>

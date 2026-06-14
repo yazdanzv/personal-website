@@ -1,0 +1,48 @@
+---
+import { toneStyles } from '../../lib/tone';
+import type { AccentTone } from '../../config/profile';
+
+interface Props {
+  id: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  tone?: AccentTone;
+  class?: string;
+  titleClass?: string;
+  descriptionClass?: string;
+}
+
+const {
+  id,
+  eyebrow,
+  title,
+  description,
+  tone = 'cyan',
+  class: className = '',
+  titleClass = 'font-display text-3xl font-semibold text-ink-100 md:text-5xl',
+  descriptionClass = 'mt-5 max-w-2xl text-base leading-8 text-ink-300 md:text-lg',
+} = Astro.props as Props;
+const accent = toneStyles[tone];
+---
+
+<section id={id} class={`relative scroll-mt-28 py-16 md:py-28 ${className}`} data-reveal>
+  <div
+    aria-hidden="true"
+    class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent"
+  ></div>
+  <div class="mx-auto flex w-full max-w-7xl flex-col gap-10 px-6 lg:px-8">
+    <div class="max-w-3xl">
+      <p class={`mb-4 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.32em] ${accent.pill}`}>
+        {eyebrow}
+      </p>
+      <h2 id={`${id}-heading`} class={titleClass}>
+        {title}
+      </h2>
+      <p class={descriptionClass}>
+        {description}
+      </p>
+    </div>
+    <slot />
+  </div>
+</section>

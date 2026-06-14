@@ -1,0 +1,27 @@
+---
+import { profile } from '../../config/profile';
+import SectionShell from '../ui/SectionShell.astro';
+import GlassCard from '../ui/GlassCard.astro';
+import StatCard from '../ui/StatCard.astro';
+import PublicationCard from '../ui/PublicationCard.astro';
+---
+
+<SectionShell
+  id="publications"
+  eyebrow="PUBLICATIONS"
+  title="Ideas Turned Into Contributions"
+  description="A collection of research projects that explore intelligent systems, machine learning, healthcare AI, bioinformatics, and trustworthy computing."
+  tone="amber"
+>
+  <div class="grid gap-4 md:grid-cols-3">
+    {profile.publications.stats.map((stat, index) => (
+      <StatCard stat={stat} tone={index === 1 ? 'violet' : index === 2 ? 'emerald' : 'amber'} delay={40 + index * 70} />
+    ))}
+  </div>
+
+  <div class="mt-6 grid gap-4 lg:grid-cols-2">
+    {profile.publications.featured.map((publication, index) => (
+      <PublicationCard publication={publication} delay={220 + index * 60} />
+    ))}
+  </div>
+</SectionShell>

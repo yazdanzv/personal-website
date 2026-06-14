@@ -1,0 +1,123 @@
+---
+---
+
+<div aria-hidden="true" class="pointer-events-none fixed inset-0 overflow-hidden">
+  <div class="absolute inset-0 grid-overlay opacity-35 animate-grid"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.08),transparent_28%),radial-gradient(circle_at_80%_10%,rgba(167,139,250,0.08),transparent_26%),linear-gradient(180deg,transparent,rgba(2,4,10,0.6))]"></div>
+  <div class="animate-drift absolute -left-28 top-[-8rem] h-[34rem] w-[34rem] rounded-full bg-cyan-500/[0.12] blur-3xl"></div>
+  <div class="animate-drift absolute right-[-12rem] top-40 h-[32rem] w-[32rem] rounded-full bg-violet-500/[0.12] blur-3xl [animation-delay:-8s]"></div>
+  <div class="animate-drift absolute bottom-[-10rem] left-1/2 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-emerald-500/10 blur-3xl [animation-delay:-14s]"></div>
+  <canvas id="particle-network" class="absolute inset-0 h-full w-full opacity-70 mix-blend-screen"></canvas>
+</div>
+
+<script>
+  const canvas = document.getElementById('particle-network');
+
+  if (canvas instanceof HTMLCanvasElement) {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    if (reducedMotion.matches) {
+      canvas.remove();
+    } else {
+      const ctx = canvas.getContext('2d');
+
+      if (ctx) {
+        const pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+        const state = {
+          dpr: Math.min(window.devicePixelRatio || 1, 2),
+          width: 0,
+          height: 0,
+          particles: [],
+        };
+
+        const particleCount = () =>
+          Math.max(30, Math.min(64, Math.round((window.innerWidth * window.innerHeight) / 22000)));
+
+        const createParticles = () => {
+          state.particles = Array.from({ length: particleCount() }, () => ({
+            x: Math.random() * state.width,
+            y: Math.random() * state.height,
+            vx: (Math.random() - 0.5) * 0.18,
+            vy: (Math.random() - 0.5) * 0.18,
+            r: 1.1 + Math.random() * 1.6,
+          }));
+        };
+
+        const resize = () => {
+          state.width = window.innerWidth;
+          state.height = window.innerHeight;
+          canvas.width = Math.floor(state.width * state.dpr);
+          canvas.height = Math.floor(state.height * state.dpr);
+          canvas.style.width = `${state.width}px`;
+          canvas.style.height = `${state.height}px`;
+          ctx.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
+          createParticles();
+        };
+
+        const draw = () => {
+          ctx.clearRect(0, 0, state.width, state.height);
+          ctx.globalCompositeOperation = 'lighter';
+
+          for (const particle of state.particles) {
+            particle.x += particle.vx;
+            particle.y += particle.vy;
+
+            if (particle.x < -20) particle.x = state.width + 20;
+            if (particle.x > state.width + 20) particle.x = -20;
+            if (particle.y < -20) particle.y = state.height + 20;
+            if (particle.y > state.height + 20) particle.y = -20;
+
+            const dx = particle.x - pointer.x;
+            const dy = particle.y - pointer.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const alpha = Math.max(0.06, 0.23 - distance / 2600);
+
+            ctx.beginPath();
+            ctx.fillStyle = `rgba(125, 211, 252, ${alpha})`;
+            ctx.arc(particle.x, particle.y, particle.r, 0, Math.PI * 2);
+            ctx.fill();
+          }
+
+          for (let i = 0; i < state.particles.length; i += 1) {
+            for (let j = i + 1; j < state.particles.length; j += 1) {
+              const a = state.particles[i];
+              const b = state.particles[j];
+              const dx = a.x - b.x;
+              const dy = a.y - b.y;
+              const distance = Math.sqrt(dx * dx + dy * dy);
+
+              if (distance < 150) {
+                const opacity = 1 - distance / 150;
+                ctx.beginPath();
+                ctx.strokeStyle = `rgba(148, 163, 184, ${opacity * 0.14})`;
+                ctx.lineWidth = 1;
+                ctx.moveTo(a.x, a.y);
+                ctx.lineTo(b.x, b.y);
+                ctx.stroke();
+              }
+            }
+          }
+
+          requestAnimationFrame(draw);
+        };
+
+        window.addEventListener('mousemove', (event) => {
+          pointer.x = event.clientX;
+          pointer.y = event.clientY;
+        });
+
+        window.addEventListener('touchmove', (event) => {
+          const touch = event.touches[0];
+          if (touch) {
+            pointer.x = touch.clientX;
+            pointer.y = touch.clientY;
+          }
+        }, { passive: true });
+
+        window.addEventListener('resize', resize);
+        resize();
+        draw();
+      }
+    }
+  }
+</script>

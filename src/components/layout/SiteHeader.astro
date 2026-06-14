@@ -1,0 +1,216 @@
+---
+import { profile } from '../../config/profile';
+import { icons } from '../../lib/icons';
+---
+
+<header class="sticky top-0 z-50 pt-4">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="glass-panel rounded-3xl px-4 py-4 md:px-5 md:py-4">
+      <div class="flex items-center justify-between gap-4">
+        <a href="#home" class="group inline-flex min-w-0 items-center gap-3">
+          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-accent-400 via-cyan-400 to-violet-400 font-display text-sm font-semibold text-surface-950 shadow-[0_18px_40px_rgba(56,189,248,0.28)]">
+            YZ
+          </span>
+          <span class="hidden min-w-0 flex-col sm:flex">
+            <span class="truncate font-display text-base font-semibold text-ink-100 transition group-hover:text-white">
+              {profile.name}
+            </span>
+            <span class="truncate text-xs text-ink-400">{profile.title}</span>
+          </span>
+          <span class="flex flex-col sm:hidden">
+            <span class="font-display text-sm font-semibold text-ink-100 transition group-hover:text-white">
+              {profile.name}
+            </span>
+            <span class="text-[11px] text-ink-400">{profile.title}</span>
+          </span>
+        </a>
+
+        <div class="hidden flex-1 items-center justify-center gap-2 overflow-hidden md:flex">
+          {profile.navigation.map((item) => (
+            <a
+              href={item.href}
+              class="rounded-full border border-white/0 px-3 py-2 text-xs font-medium text-ink-300 transition duration-300 hover:border-white/10 hover:bg-white/5 hover:text-white xl:text-sm"
+            >
+              {item.label}
+            </a>
+          ))}
+        </div>
+
+        <div class="hidden items-center gap-3 md:flex">
+          <a
+            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(profile.locationMapQuery ?? profile.location)}`}
+            target="_blank"
+            rel="noreferrer noopener"
+            class="inline-flex min-w-[10rem] justify-center rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-2 text-center text-xs font-medium text-emerald-200 transition hover:border-emerald-300/30 hover:bg-emerald-400/15"
+          >
+            {profile.location}
+          </a>
+          <button
+            type="button"
+            data-theme-toggle
+            aria-pressed="false"
+            aria-label="Switch to light theme"
+            class="inline-flex items-center gap-2 rounded-full border border-white/[0.12] bg-white/5 px-4 py-2 text-sm font-semibold text-ink-100 transition duration-300 hover:border-white/20 hover:bg-white/10"
+          >
+            <span class="theme-toggle-icon theme-toggle-icon-sun size-4 shrink-0 text-current" set:html={icons.sun}></span>
+            <span class="theme-toggle-icon theme-toggle-icon-moon size-4 shrink-0 text-current" set:html={icons.moon}></span>
+            <span class="theme-toggle-label theme-toggle-label-light">Light</span>
+            <span class="theme-toggle-label theme-toggle-label-dark">Dark</span>
+          </button>
+        </div>
+
+        <div class="flex items-center gap-2 md:hidden">
+          <button
+            type="button"
+            data-theme-toggle
+            aria-pressed="false"
+            aria-label="Switch to light theme"
+            class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/[0.12] bg-white/5 text-ink-100 transition duration-300 hover:border-white/20 hover:bg-white/10"
+          >
+            <span class="theme-toggle-icon theme-toggle-icon-sun size-4 shrink-0 text-current" set:html={icons.sun}></span>
+            <span class="theme-toggle-icon theme-toggle-icon-moon size-4 shrink-0 text-current" set:html={icons.moon}></span>
+          </button>
+          <button
+            type="button"
+            data-mobile-menu-toggle
+            aria-expanded="false"
+            aria-controls="mobile-navigation"
+            aria-label="Open navigation menu"
+            class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/[0.12] bg-white/5 text-ink-100 transition duration-300 hover:border-white/20 hover:bg-white/10"
+          >
+            <span class="relative block h-4 w-5">
+              <span class="absolute left-0 top-0 h-0.5 w-5 rounded-full bg-current transition duration-300" data-menu-line-top></span>
+              <span class="absolute left-0 top-1.5 h-0.5 w-5 rounded-full bg-current transition duration-300" data-menu-line-middle></span>
+              <span class="absolute left-0 top-3 h-0.5 w-5 rounded-full bg-current transition duration-300" data-menu-line-bottom></span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    data-mobile-menu-backdrop
+    class="pointer-events-none fixed inset-0 z-40 bg-surface-950/72 opacity-0 backdrop-blur-md transition duration-300 md:hidden"
+    hidden
+  ></div>
+
+  <div
+    id="mobile-navigation"
+    data-mobile-menu
+    class="fixed inset-x-4 top-[4.75rem] z-50 max-h-[calc(100vh-6rem)] overflow-y-auto overscroll-contain md:hidden"
+    hidden
+  >
+    <div class="glass-panel overflow-hidden rounded-3xl border border-white/10 bg-surface-900/94 shadow-[0_24px_70px_rgba(0,0,0,0.45)] backdrop-blur-2xl">
+      <div class="border-b border-white/10 px-5 py-4">
+        <div class="flex items-center justify-between gap-3">
+          <div>
+            <p class="text-xs uppercase tracking-[0.32em] text-ink-400">Navigation</p>
+            <p class="mt-2 text-sm text-ink-200">Quick access to the main sections.</p>
+          </div>
+          <a
+            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(profile.locationMapQuery ?? profile.location)}`}
+            target="_blank"
+            rel="noreferrer noopener"
+            class="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-2 text-xs font-medium text-emerald-200"
+          >
+            {profile.location}
+          </a>
+        </div>
+      </div>
+
+      <nav class="grid gap-2 px-3 py-4">
+        {profile.navigation.map((item) => (
+          <a
+            href={item.href}
+            data-mobile-nav-link
+            class="rounded-2xl border border-white/5 bg-white/[0.04] px-4 py-4 text-sm font-medium text-ink-200 transition duration-300 hover:border-white/15 hover:bg-white/[0.07] hover:text-white"
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
+      <div class="border-t border-white/10 px-5 py-4">
+        <button
+          type="button"
+          data-theme-toggle
+          aria-pressed="false"
+          aria-label="Switch to light theme"
+          class="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/[0.12] bg-white/5 px-4 py-3 text-sm font-semibold text-ink-100 transition duration-300 hover:border-white/20 hover:bg-white/10"
+        >
+          <span class="theme-toggle-icon theme-toggle-icon-sun size-4 shrink-0 text-current" set:html={icons.sun}></span>
+          <span class="theme-toggle-icon theme-toggle-icon-moon size-4 shrink-0 text-current" set:html={icons.moon}></span>
+          <span class="theme-toggle-label theme-toggle-label-light">Light theme</span>
+          <span class="theme-toggle-label theme-toggle-label-dark">Dark theme</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    const mobileMenu = document.querySelector('[data-mobile-menu]');
+    const mobileBackdrop = document.querySelector('[data-mobile-menu-backdrop]');
+    const mobileToggle = document.querySelector('[data-mobile-menu-toggle]');
+    const mobileNavLinks = Array.from(document.querySelectorAll('[data-mobile-nav-link]'));
+    const menuLines = {
+      top: document.querySelector('[data-menu-line-top]'),
+      middle: document.querySelector('[data-menu-line-middle]'),
+      bottom: document.querySelector('[data-menu-line-bottom]'),
+    };
+    const body = document.body;
+
+    const isOpen = () => mobileMenu instanceof HTMLElement && !mobileMenu.hasAttribute('hidden');
+
+    const setMenuState = (open) => {
+      if (mobileMenu instanceof HTMLElement) {
+        mobileMenu.toggleAttribute('hidden', !open);
+      }
+
+      if (mobileBackdrop instanceof HTMLElement) {
+        mobileBackdrop.toggleAttribute('hidden', !open);
+        mobileBackdrop.classList.toggle('opacity-100', open);
+        mobileBackdrop.classList.toggle('pointer-events-auto', open);
+        mobileBackdrop.classList.toggle('opacity-0', !open);
+        mobileBackdrop.classList.toggle('pointer-events-none', !open);
+      }
+
+      if (mobileToggle instanceof HTMLButtonElement) {
+        mobileToggle.setAttribute('aria-expanded', String(open));
+        mobileToggle.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+      }
+
+      body.style.overflow = open ? 'hidden' : '';
+
+      if (menuLines.top instanceof HTMLElement) {
+        menuLines.top.style.transform = open ? 'translateY(6px) rotate(45deg)' : '';
+      }
+      if (menuLines.middle instanceof HTMLElement) {
+        menuLines.middle.style.opacity = open ? '0' : '1';
+      }
+      if (menuLines.bottom instanceof HTMLElement) {
+        menuLines.bottom.style.transform = open ? 'translateY(-6px) rotate(-45deg)' : '';
+      }
+    };
+
+    const closeMenu = () => setMenuState(false);
+
+    if (mobileToggle instanceof HTMLButtonElement) {
+      mobileToggle.addEventListener('click', () => setMenuState(!isOpen()));
+    }
+
+    if (mobileBackdrop instanceof HTMLElement) {
+      mobileBackdrop.addEventListener('click', closeMenu);
+    }
+
+    mobileNavLinks.forEach((link) => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeMenu();
+      }
+    });
+  </script>
+</header>

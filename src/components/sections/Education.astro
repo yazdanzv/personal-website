@@ -1,0 +1,31 @@
+---
+import { profile } from '../../config/profile';
+import SectionShell from '../ui/SectionShell.astro';
+import GlassCard from '../ui/GlassCard.astro';
+import { toneStyles } from '../../lib/tone';
+
+---
+
+<SectionShell
+  id="education"
+  eyebrow="EDUCATION"
+  title="Where It All Started"
+  description="The academic foundations that sparked my interest in computer science, research, and intelligent systems."
+  tone="violet"
+>
+  <div class="grid gap-4 lg:grid-cols-2">
+    {profile.education.map((item, index) => (
+      <GlassCard tone={item.tone} delay={index * 80} class="p-6 md:p-8">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <p class="text-xs uppercase tracking-[0.32em] text-ink-400">Institution</p>
+            <h3 class={`mt-3 font-display text-2xl font-semibold ${toneStyles[item.tone].text}`}>{item.institution}</h3>
+            <p class="mt-4 text-lg text-ink-200">{item.degree}</p>
+          </div>
+          <span class={`mt-1 h-3 w-3 rounded-full ${toneStyles[item.tone].orb} ${toneStyles[item.tone].glow}`}></span>
+        </div>
+        <p class="mt-6 text-sm uppercase tracking-[0.28em] text-ink-400">{item.detail}</p>
+      </GlassCard>
+    ))}
+  </div>
+</SectionShell>

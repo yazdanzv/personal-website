@@ -1,0 +1,20 @@
+---
+import { profile } from '../../config/profile';
+import SectionShell from '../ui/SectionShell.astro';
+import SkillGroup from '../ui/SkillGroup.astro';
+
+---
+
+<SectionShell
+  id="skills"
+  eyebrow="SKILLS"
+  title="The Tools Behind My Work"
+  description="Technologies, frameworks, and platforms I rely on to build software systems, conduct research, and transform ideas into practical solutions."
+  tone="blue"
+>
+  <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+    {profile.skills.map((group, index) => (
+      <SkillGroup group={group} delay={index * 70} />
+    ))}
+  </div>
+</SectionShell>

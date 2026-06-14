@@ -1,0 +1,176 @@
+---
+import { profile } from '../../config/profile';
+import ActionButton from '../ui/ActionButton.astro';
+import GlassCard from '../ui/GlassCard.astro';
+import SocialLink from '../ui/SocialLink.astro';
+import StatCard from '../ui/StatCard.astro';
+import { toneStyles } from '../../lib/tone';
+
+const accent = toneStyles.cyan;
+const resolveAssetUrl = (value: string) => new URL(value.replace(/^\/+/, ''), Astro.url).href;
+---
+
+<section id="home" class="relative overflow-hidden pt-12 pb-20 md:pt-20 md:pb-28">
+  <div class="mx-auto grid w-full max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[1.12fr_0.88fr] lg:items-start lg:px-8">
+    <div class="relative z-10 flex flex-col justify-center" data-reveal>
+      <p class="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs font-semibold uppercase tracking-[0.34em] text-ink-300">
+        <span class={`h-2 w-2 rounded-full ${accent.orb} ${accent.glow}`}></span>
+        Software Engineer & AI Researcher
+      </p>
+
+      <h1 class="max-w-5xl font-display text-4xl font-semibold leading-[0.96] text-ink-100 sm:text-5xl md:text-7xl xl:text-8xl">
+        Yazdan Zandiye Vakili
+      </h1>
+
+      <p class="mt-5 max-w-3xl text-base leading-8 text-ink-300 sm:text-lg md:text-xl">
+        {profile.hero.intro}
+      </p>
+
+      <div class="mt-7 flex flex-wrap items-center gap-3 text-sm text-ink-300">
+        <span class="rounded-full border border-white/10 bg-white/[0.04] px-3 py-2 font-medium">
+          {profile.location}
+        </span>
+        <span class="rounded-full border border-white/10 bg-white/[0.04] px-3 py-2 font-medium">
+          Software engineering
+        </span>
+        <span class="rounded-full border border-white/10 bg-white/[0.04] px-3 py-2 font-medium">
+          AI systems and research
+        </span>
+      </div>
+
+      <div class="mt-8 flex items-center gap-3 text-sm text-ink-300">
+        <span class="inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_18px_rgba(52,211,153,0.65)]"></span>
+        <span>Working at the intersection of production engineering and publishable AI research.</span>
+      </div>
+
+      <p class="mt-6 max-w-2xl text-base leading-8 text-ink-400">
+        Specialized in
+        <span
+          class="inline-flex min-h-7 items-center rounded-full border border-white/10 bg-white/[0.04] px-3 font-mono text-sm text-cyan-200"
+          data-typing
+          data-words={profile.hero.focus.join('|')}
+          aria-live="polite"
+        >
+          Information Retrieval
+        </span>
+        , with a practical focus on software quality, retrieval systems, and trustworthy AI.
+      </p>
+
+      <div class="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        {profile.hero.primaryActions.map((action) => (
+          <ActionButton
+            href={action.href.startsWith('cv.pdf') ? `${import.meta.env.BASE_URL}${action.href}` : action.href}
+            label={action.label}
+            variant={action.variant}
+            icon={action.icon}
+            external={action.external}
+            download={action.download}
+            class="w-full sm:w-auto"
+          />
+        ))}
+      </div>
+
+      <div class="mt-5 flex flex-wrap gap-3">
+        {profile.hero.socialActions.map((social) => (
+          <SocialLink href={social.href} label={social.label} icon={social.icon} />
+        ))}
+      </div>
+    </div>
+
+    <div class="relative z-10 flex items-start" data-reveal style="--reveal-delay:120ms">
+      <div class="relative w-full">
+        <div class="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-cyan-500/10 via-violet-500/10 to-emerald-500/10 blur-3xl"></div>
+        <GlassCard class="p-6 sm:p-7 md:p-8" tone="cyan" delay={80}>
+          <div class="flex flex-col items-start justify-between gap-5 sm:flex-row sm:gap-6">
+            <div class="flex items-start gap-4">
+              <div class="relative h-[4.5rem] w-[4.5rem] shrink-0 overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-[0_12px_30px_rgba(0,0,0,0.28)] sm:h-20 sm:w-20">
+                <img
+                  src={resolveAssetUrl(profile.photo.src)}
+                  alt={profile.photo.alt}
+                  width="320"
+                  height="320"
+                  loading="eager"
+                  decoding="async"
+                  fetchpriority="high"
+                  class="h-full w-full object-cover object-center"
+                />
+              </div>
+              <div>
+                <p class="text-xs uppercase tracking-[0.34em] text-ink-400">Profile snapshot</p>
+                <h2 class="mt-3 max-w-xs font-display text-2xl font-semibold text-ink-100 sm:max-w-none sm:text-3xl">
+                  Software Engineering with a researcher's discipline
+                </h2>
+              </div>
+            </div>
+            <span class="inline-flex rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-emerald-200 sm:text-xs">
+              Open to collaborate
+            </span>
+          </div>
+
+          <div class="mt-8 grid gap-4 sm:grid-cols-3">
+            {profile.hero.stats.map((stat, index) => (
+              <StatCard stat={stat} tone={index === 1 ? 'violet' : index === 2 ? 'emerald' : 'cyan'} delay={100 + index * 70} />
+            ))}
+          </div>
+
+          <div class="mt-8 grid gap-3">
+            {profile.hero.highlights.map((highlight, index) => (
+              <div
+                class="rounded-2xl border border-white/10 bg-surface-850/80 p-4"
+                data-reveal
+                style={`--reveal-delay:${180 + index * 80}ms`}
+              >
+                <div class="flex items-start gap-3">
+                  <span class={`mt-1 h-2.5 w-2.5 rounded-full ${toneStyles[highlight.tone].orb} ${toneStyles[highlight.tone].glow}`}></span>
+                  <div>
+                    <h3 class={`font-semibold ${toneStyles[highlight.tone].text}`}>{highlight.title}</h3>
+                    <p class="mt-2 text-sm leading-7 text-ink-300">{highlight.description}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </GlassCard>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const typingElement = document.querySelector('[data-typing]');
+
+    if (typingElement instanceof HTMLElement) {
+      const words = typingElement.dataset.words?.split('|').filter(Boolean) ?? [];
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (reducedMotion || words.length === 0) {
+        typingElement.textContent = words[0] ?? typingElement.textContent ?? '';
+      } else {
+        let wordIndex = 0;
+        const swapDelay = 3000;
+        const fadeDelay = 180;
+
+        typingElement.textContent = words[wordIndex];
+        typingElement.style.transition = 'opacity 220ms ease, filter 220ms ease';
+        typingElement.style.opacity = '1';
+        typingElement.style.filter = 'blur(0)';
+
+        const swapWord = () => {
+          typingElement.style.opacity = '0';
+          typingElement.style.filter = 'blur(4px)';
+
+          window.setTimeout(() => {
+            wordIndex = (wordIndex + 1) % words.length;
+            typingElement.textContent = words[wordIndex];
+            typingElement.style.opacity = '1';
+            typingElement.style.filter = 'blur(0)';
+          }, fadeDelay);
+        };
+
+        window.setTimeout(() => {
+          swapWord();
+          window.setInterval(swapWord, swapDelay);
+        }, 2500);
+      }
+    }
+  </script>
+</section>

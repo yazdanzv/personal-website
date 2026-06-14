@@ -1,0 +1,47 @@
+---
+import type { ExperienceEntry } from '../../config/profile';
+import { toneStyles } from '../../lib/tone';
+
+interface Props {
+  entry: ExperienceEntry;
+  delay?: number;
+}
+
+const { entry, delay = 0 } = Astro.props as Props;
+const accent = toneStyles[entry.tone];
+---
+
+<article
+  class="relative pl-10"
+  data-reveal
+  style={`--reveal-delay:${delay}ms`}
+>
+  <span
+    aria-hidden="true"
+    class={`absolute left-0 top-6 h-4 w-4 rounded-full border border-white/20 bg-gradient-to-br ${accent.line} ring-4 ring-surface-900 ${accent.glow}`}
+  ></span>
+  <span
+    aria-hidden="true"
+    class="absolute left-[7px] top-10 h-[calc(100%+1.75rem)] w-px bg-gradient-to-b from-white/20 to-transparent"
+  ></span>
+  <div class="glass-panel rounded-3xl p-6 transition duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.08]">
+    <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+      <div class="max-w-3xl">
+        <p class={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.32em] ${accent.pill}`}>
+          {entry.company}
+        </p>
+        <h3 class="mt-4 font-display text-2xl font-semibold text-ink-100">{entry.role}</h3>
+        <p class="mt-2 text-sm uppercase tracking-[0.24em] text-ink-400">{entry.location}</p>
+        <p class="mt-5 text-base leading-8 text-ink-300">{entry.summary}</p>
+      </div>
+    </div>
+
+    <div class="mt-6 flex flex-wrap gap-2">
+      {entry.technologies.map((technology) => (
+        <span class="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-sm text-ink-300">
+          {technology}
+        </span>
+      ))}
+    </div>
+  </div>
+</article>

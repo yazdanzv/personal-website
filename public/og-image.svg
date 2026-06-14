@@ -1,0 +1,46 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="84" y1="48" x2="1114" y2="582" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#02040A"/>
+      <stop offset="1" stop-color="#050816"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="140" y1="92" x2="978" y2="520" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7DD3FC" stop-opacity="0.95"/>
+      <stop offset="0.5" stop-color="#38BDF8" stop-opacity="0.92"/>
+      <stop offset="1" stop-color="#A78BFA" stop-opacity="0.92"/>
+    </linearGradient>
+    <linearGradient id="grid" x1="0" y1="0" x2="0" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="white" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="white" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" rx="36" fill="url(#bg)"/>
+  <g opacity="0.26">
+    <path d="M84 102H1116M84 204H1116M84 306H1116M84 408H1116M84 510H1116" stroke="#FFFFFF" stroke-opacity="0.10" stroke-width="1.2"/>
+    <path d="M160 48V582M304 48V582M448 48V582M592 48V582M736 48V582M880 48V582M1024 48V582" stroke="#FFFFFF" stroke-opacity="0.10" stroke-width="1.2"/>
+  </g>
+  <circle cx="978" cy="146" r="164" fill="#7DD3FC" fill-opacity="0.08"/>
+  <circle cx="154" cy="542" r="184" fill="#A78BFA" fill-opacity="0.09"/>
+  <circle cx="1040" cy="520" r="124" fill="#34D399" fill-opacity="0.08"/>
+  <rect x="64" y="64" width="1072" height="502" rx="28" stroke="#FFFFFF" stroke-opacity="0.10" stroke-width="2"/>
+  <text x="96" y="176" fill="#F5F7FF" font-family="Space Grotesk, Arial, sans-serif" font-size="64" font-weight="700" letter-spacing="-1.5">Yazdan Zandiye Vakili</text>
+  <text x="96" y="236" fill="#B5C4E6" font-family="Manrope, Arial, sans-serif" font-size="28" font-weight="500">Software Engineer | AI &amp; Information Retrieval Researcher</text>
+  <text x="96" y="292" fill="#93A4C7" font-family="Manrope, Arial, sans-serif" font-size="22" font-weight="500">Vienna, Austria</text>
+
+  <g transform="translate(96 344)">
+    <rect width="198" height="52" rx="26" fill="#FFFFFF" fill-opacity="0.05" stroke="#7DD3FC" stroke-opacity="0.18"/>
+    <text x="26" y="33" fill="#7DD3FC" font-family="IBM Plex Mono, monospace" font-size="18" font-weight="500">Information Retrieval</text>
+  </g>
+  <g transform="translate(312 344)">
+    <rect width="254" height="52" rx="26" fill="#FFFFFF" fill-opacity="0.05" stroke="#A78BFA" stroke-opacity="0.18"/>
+    <text x="26" y="33" fill="#A78BFA" font-family="IBM Plex Mono, monospace" font-size="18" font-weight="500">Natural Language Processing</text>
+  </g>
+  <g transform="translate(584 344)">
+    <rect width="188" height="52" rx="26" fill="#FFFFFF" fill-opacity="0.05" stroke="#34D399" stroke-opacity="0.18"/>
+    <text x="26" y="33" fill="#34D399" font-family="IBM Plex Mono, monospace" font-size="18" font-weight="500">Trustworthy AI</text>
+  </g>
+
+  <path d="M800 150C866 104 930 94 1002 116C1060 134 1100 176 1118 234" stroke="url(#glow)" stroke-width="10" stroke-linecap="round"/>
+  <path d="M806 278C872 248 952 242 1038 252C1082 258 1114 274 1136 296" stroke="#7DD3FC" stroke-opacity="0.4" stroke-width="6" stroke-linecap="round"/>
+  <text x="96" y="486" fill="#F5F7FF" font-family="Manrope, Arial, sans-serif" font-size="22" font-weight="500">Portfolio • Research • Software Engineering • Academic Profile</text>
+</svg>

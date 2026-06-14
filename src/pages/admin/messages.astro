@@ -1,0 +1,589 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GlassCard from '../../components/ui/GlassCard.astro';
+import { profile } from '../../config/profile';
+import { icons } from '../../lib/icons';
+---
+
+<BaseLayout
+  title={`Private Inbox | ${profile.name}`}
+  description="Private message inbox for portfolio contact submissions."
+  robots="noindex,nofollow"
+>
+  <div class="mx-auto max-w-7xl px-6 py-10 lg:px-8 lg:py-14">
+    <div class="grid gap-6 lg:grid-cols-[0.96fr_1.04fr]">
+      <GlassCard tone="violet" delay={0} class="p-8 md:p-10">
+        <p class="text-xs uppercase tracking-[0.36em] text-ink-400">Private inbox</p>
+        <h1 class="mt-4 max-w-2xl font-display text-4xl font-semibold leading-[1.03] text-ink-100 md:text-6xl">
+          Messages from the chat widget
+        </h1>
+        <p class="mt-5 max-w-2xl text-base leading-8 text-ink-200 md:text-lg">
+          Sign in to review stored messages, update their status, and keep a clean record of inquiries from the
+          website.
+        </p>
+
+        <div class="mt-8 grid gap-3 sm:grid-cols-3">
+          <div class="rounded-3xl border border-white/10 bg-white/[0.04] px-4 py-4">
+            <p class="text-xs uppercase tracking-[0.28em] text-ink-400">Total</p>
+            <p data-admin-total class="mt-3 font-display text-3xl font-semibold text-ink-100">0</p>
+          </div>
+          <div class="rounded-3xl border border-white/10 bg-white/[0.04] px-4 py-4">
+            <p class="text-xs uppercase tracking-[0.28em] text-ink-400">New</p>
+            <p data-admin-new class="mt-3 font-display text-3xl font-semibold text-cyan-200">0</p>
+          </div>
+          <div class="rounded-3xl border border-white/10 bg-white/[0.04] px-4 py-4">
+            <p class="text-xs uppercase tracking-[0.28em] text-ink-400">Replied</p>
+            <p data-admin-replied class="mt-3 font-display text-3xl font-semibold text-emerald-200">0</p>
+          </div>
+        </div>
+      </GlassCard>
+
+      <GlassCard tone="cyan" delay={40} class="p-8 md:p-10">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <p class="text-xs uppercase tracking-[0.36em] text-ink-400">Access</p>
+            <h2 class="mt-4 font-display text-3xl font-semibold text-ink-100">Sign in to review messages</h2>
+            <p class="mt-4 max-w-xl text-sm leading-7 text-ink-300">
+              Use your admin account for the inbox. Stored messages stay private and can only be read after
+              authentication.
+            </p>
+          </div>
+          <div class="hidden rounded-full border border-white/10 bg-white/[0.04] p-3 text-ink-200 md:block">
+            <span class="size-6" set:html={icons.lock}></span>
+          </div>
+        </div>
+
+        <div data-admin-session class="mt-8 hidden rounded-3xl border border-emerald-400/20 bg-emerald-400/10 p-5 text-emerald-100">
+          <div class="flex items-center justify-between gap-3">
+            <div>
+              <p class="text-xs uppercase tracking-[0.28em] text-emerald-200">Session active</p>
+              <p data-admin-session-email class="mt-2 text-sm font-medium text-emerald-50"></p>
+            </div>
+            <button
+              type="button"
+              data-admin-signout
+              class="inline-flex items-center gap-2 rounded-full border border-emerald-300/20 bg-emerald-300/10 px-4 py-2 text-sm font-semibold text-emerald-50 transition hover:border-emerald-200/40 hover:bg-emerald-300/20"
+            >
+              <span class="size-4" set:html={icons.arrow}></span>
+              Sign out
+            </button>
+          </div>
+        </div>
+
+        <form data-admin-login class="mt-8 space-y-4">
+          <label class="grid gap-2">
+            <span class="text-xs uppercase tracking-[0.28em] text-ink-400">Email</span>
+            <input
+              data-admin-email
+              type="email"
+              value={profile.email}
+              required
+              class="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-ink-100 outline-none transition placeholder:text-ink-400 focus:border-cyan-400/40 focus:bg-white/[0.07]"
+            />
+          </label>
+
+          <label class="grid gap-2">
+            <span class="text-xs uppercase tracking-[0.28em] text-ink-400">Password</span>
+            <input
+              data-admin-password
+              type="password"
+              required
+              class="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-ink-100 outline-none transition placeholder:text-ink-400 focus:border-cyan-400/40 focus:bg-white/[0.07]"
+              placeholder="Supabase auth password"
+            />
+          </label>
+
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <p class="text-xs leading-6 text-ink-400">
+              Messages are stored in <span class="text-ink-100">Supabase</span> and protected by row-level policies.
+            </p>
+            <button
+              type="submit"
+              data-admin-login-submit
+              class="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-accent-400 via-cyan-400 to-violet-400 px-5 py-3 text-sm font-semibold text-surface-950 shadow-[0_18px_42px_rgba(56,189,248,0.24)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_54px_rgba(56,189,248,0.32)]"
+            >
+              <span class="size-4" set:html={icons.spark}></span>
+              Sign in
+            </button>
+          </div>
+        </form>
+
+        <p
+          data-admin-status
+          class="mt-4 min-h-6 text-sm text-ink-300"
+          aria-live="polite"
+        ></p>
+      </GlassCard>
+    </div>
+
+    <GlassCard tone="emerald" delay={80} class="mt-6 overflow-hidden p-0">
+      <div class="flex flex-col gap-4 border-b border-white/10 px-6 py-5 md:flex-row md:items-center md:justify-between md:px-8">
+        <div>
+          <p class="text-xs uppercase tracking-[0.36em] text-ink-400">Message feed</p>
+          <h2 class="mt-3 font-display text-3xl font-semibold text-ink-100">Latest submissions</h2>
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            data-admin-refresh
+            class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-semibold text-ink-200 transition hover:border-white/20 hover:bg-white/[0.08] hover:text-white"
+          >
+            <span class="size-4" set:html={icons.arrow}></span>
+            Refresh
+          </button>
+        </div>
+      </div>
+
+      <div data-admin-empty class="hidden px-6 py-12 text-center md:px-8">
+        <p class="text-base text-ink-300">No messages yet.</p>
+      </div>
+
+      <div data-admin-list class="grid gap-4 px-6 py-6 md:px-8"></div>
+    </GlassCard>
+  </div>
+
+  <script type="module" define:vars={{ supabaseUrl: import.meta.env.PUBLIC_SUPABASE_URL?.trim() ?? '', supabaseAnonKey: import.meta.env.PUBLIC_SUPABASE_ANON_KEY?.trim() ?? '' }}>
+    const adminSessionKey = 'yazdan-admin-session';
+    const adminStatus = document.querySelector('[data-admin-status]');
+    const adminSession = document.querySelector('[data-admin-session]');
+    const adminSessionEmail = document.querySelector('[data-admin-session-email]');
+    const adminLoginForm = document.querySelector('[data-admin-login]');
+    const adminEmail = document.querySelector('[data-admin-email]');
+    const adminPassword = document.querySelector('[data-admin-password]');
+    const adminLoginSubmit = document.querySelector('[data-admin-login-submit]');
+    const adminSignOut = document.querySelector('[data-admin-signout]');
+    const adminRefresh = document.querySelector('[data-admin-refresh]');
+    const adminList = document.querySelector('[data-admin-list]');
+    const adminEmpty = document.querySelector('[data-admin-empty]');
+    const adminTotal = document.querySelector('[data-admin-total]');
+    const adminNew = document.querySelector('[data-admin-new]');
+    const adminReplied = document.querySelector('[data-admin-replied]');
+    const isConfigured = Boolean(supabaseUrl && supabaseAnonKey);
+
+    const normalizeBaseUrl = (value) => value.replace(/\/+$/, '');
+    const buildRestUrl = (path) => `${normalizeBaseUrl(supabaseUrl)}/rest/v1/${path}`;
+    const buildAuthUrl = (path) => `${normalizeBaseUrl(supabaseUrl)}/auth/v1/${path}`;
+
+    const decodeJwtExpiry = (token) => {
+      try {
+        const parts = token.split('.');
+        if (parts.length < 2) return null;
+
+        const base64 = parts[1].replace(/-/g, '+').replace(/_/g, '/');
+        const json = atob(base64);
+        const parsed = JSON.parse(json);
+        return typeof parsed.exp === 'number' ? parsed.exp : null;
+      } catch {
+        return null;
+      }
+    };
+
+    const readErrorMessage = async (response, fallback) => {
+      const text = await response.text();
+
+      if (!text) return fallback;
+
+      try {
+        const parsed = JSON.parse(text);
+        return parsed.error_description || parsed.message || parsed.details || parsed.msg || parsed.error || fallback;
+      } catch {
+        return text || fallback;
+      }
+    };
+
+    const getStoredAdminSession = () => {
+      try {
+        const raw = window.localStorage.getItem(adminSessionKey);
+        if (!raw) return null;
+
+        const parsed = JSON.parse(raw);
+        if (
+          typeof parsed?.accessToken === 'string' &&
+          typeof parsed?.refreshToken === 'string' &&
+          typeof parsed?.expiresAt === 'number' &&
+          typeof parsed?.tokenType === 'string' &&
+          typeof parsed?.userEmail === 'string'
+        ) {
+          return parsed;
+        }
+      } catch {
+        // Ignore storage failures.
+      }
+
+      return null;
+    };
+
+    const saveAdminSession = (session) => {
+      try {
+        window.localStorage.setItem(adminSessionKey, JSON.stringify(session));
+      } catch {
+        // Ignore storage failures.
+      }
+    };
+
+    const clearAdminSession = () => {
+      try {
+        window.localStorage.removeItem(adminSessionKey);
+      } catch {
+        // Ignore storage failures.
+      }
+    };
+
+    const setStatus = (message, tone = 'neutral') => {
+      if (!(adminStatus instanceof HTMLElement)) return;
+
+      adminStatus.textContent = message;
+      adminStatus.classList.remove('text-emerald-300', 'text-red-300', 'text-amber-300', 'text-ink-300');
+      adminStatus.classList.add(
+        tone === 'success' ? 'text-emerald-300' : tone === 'error' ? 'text-red-300' : tone === 'warning' ? 'text-amber-300' : 'text-ink-300',
+      );
+    };
+
+    const setPanelVisible = (visible) => {
+      if (adminSession instanceof HTMLElement) {
+        adminSession.classList.toggle('hidden', !visible);
+      }
+      if (adminLoginForm instanceof HTMLFormElement) {
+        adminLoginForm.classList.toggle('hidden', visible);
+      }
+    };
+
+    const setLoading = (isLoading) => {
+      if (adminLoginSubmit instanceof HTMLButtonElement) {
+        adminLoginSubmit.disabled = isLoading;
+        adminLoginSubmit.setAttribute('aria-busy', String(isLoading));
+      }
+
+      if (adminRefresh instanceof HTMLButtonElement) {
+        adminRefresh.disabled = isLoading;
+      }
+    };
+
+    const formatDate = (value) =>
+      new Intl.DateTimeFormat('en-GB', {
+        dateStyle: 'medium',
+        timeStyle: 'short',
+      }).format(new Date(value));
+
+    const updateContactMessageStatus = async (id, status, accessToken) => {
+      const response = await fetch(`${buildRestUrl('contact_messages')}?id=eq.${encodeURIComponent(id)}`, {
+        method: 'PATCH',
+        headers: {
+          apikey: supabaseAnonKey,
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Prefer: 'return=minimal',
+        },
+        body: JSON.stringify({ status }),
+      });
+
+      if (!response.ok) {
+        throw new Error(await readErrorMessage(response, 'Unable to update message.'));
+      }
+    };
+
+    const fetchContactMessages = async (accessToken) => {
+      const response = await fetch(
+        `${buildRestUrl('contact_messages')}?select=id,name,email,message,status,created_at,updated_at,source&order=created_at.desc`,
+        {
+          headers: {
+            apikey: supabaseAnonKey,
+            Authorization: `Bearer ${accessToken}`,
+            Accept: 'application/json',
+          },
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error(await readErrorMessage(response, 'Unable to load messages.'));
+      }
+
+      return await response.json();
+    };
+
+    const signInAdmin = async (email, password) => {
+      const response = await fetch(buildAuthUrl('token?grant_type=password'), {
+        method: 'POST',
+        headers: {
+          apikey: supabaseAnonKey,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const payload = await response.json();
+
+      if (!response.ok || !payload?.access_token) {
+        const message = payload?.error_description || payload?.message || payload?.msg || payload?.error || 'Invalid admin credentials.';
+        throw new Error(message);
+      }
+
+      const expiresAt = decodeJwtExpiry(payload.access_token) ?? Math.floor(Date.now() / 1000) + payload.expires_in;
+
+      return {
+        accessToken: payload.access_token,
+        refreshToken: payload.refresh_token,
+        expiresAt,
+        tokenType: payload.token_type,
+        userEmail: payload.user?.email ?? email,
+      };
+    };
+
+    const refreshAdminSession = async (session) => {
+      const response = await fetch(buildAuthUrl('token?grant_type=refresh_token'), {
+        method: 'POST',
+        headers: {
+          apikey: supabaseAnonKey,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({ refresh_token: session.refreshToken }),
+      });
+
+      const payload = await response.json();
+
+      if (!response.ok || !payload?.access_token) {
+        const message = payload?.error_description || payload?.message || payload?.msg || payload?.error || 'Unable to refresh admin session.';
+        throw new Error(message);
+      }
+
+      const expiresAt = decodeJwtExpiry(payload.access_token) ?? Math.floor(Date.now() / 1000) + payload.expires_in;
+
+      return {
+        accessToken: payload.access_token,
+        refreshToken: payload.refresh_token,
+        expiresAt,
+        tokenType: payload.token_type,
+        userEmail: payload.user?.email ?? session.userEmail,
+      };
+    };
+
+    const renderStats = (messages) => {
+      const total = messages.length;
+      const unread = messages.filter((message) => message.status === 'new').length;
+      const replied = messages.filter((message) => message.status === 'replied').length;
+
+      if (adminTotal instanceof HTMLElement) adminTotal.textContent = String(total);
+      if (adminNew instanceof HTMLElement) adminNew.textContent = String(unread);
+      if (adminReplied instanceof HTMLElement) adminReplied.textContent = String(replied);
+    };
+
+    const renderMessages = (messages, accessToken) => {
+      if (!(adminList instanceof HTMLElement) || !(adminEmpty instanceof HTMLElement)) return;
+
+      adminList.replaceChildren();
+      adminEmpty.classList.toggle('hidden', messages.length > 0);
+      renderStats(messages);
+
+      if (!messages.length) return;
+
+      for (const message of messages) {
+        const article = document.createElement('article');
+        article.className =
+          'rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-5 shadow-[0_18px_50px_rgba(0,0,0,0.14)] backdrop-blur-xl transition duration-300 hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/[0.06]';
+
+        const topRow = document.createElement('div');
+        topRow.className = 'flex flex-col gap-3 md:flex-row md:items-start md:justify-between';
+
+        const headingWrap = document.createElement('div');
+        headingWrap.className = 'space-y-2';
+
+        const title = document.createElement('h3');
+        title.className = 'font-display text-2xl font-semibold text-ink-100';
+        title.textContent = message.name;
+
+        const meta = document.createElement('p');
+        meta.className = 'text-sm text-ink-400';
+        meta.textContent = `${message.email} · ${formatDate(message.created_at)}`;
+
+        const body = document.createElement('p');
+        body.className = 'mt-4 max-w-4xl whitespace-pre-wrap text-sm leading-7 text-ink-200';
+        body.textContent = message.message;
+
+        const badge = document.createElement('span');
+        const toneClasses =
+          message.status === 'new'
+            ? 'border-cyan-400/20 bg-cyan-400/10 text-cyan-100'
+            : message.status === 'replied'
+              ? 'border-emerald-400/20 bg-emerald-400/10 text-emerald-100'
+              : 'border-violet-400/20 bg-violet-400/10 text-violet-100';
+        badge.className = `inline-flex items-center rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] ${toneClasses}`;
+        badge.textContent = message.status;
+
+        const actionRow = document.createElement('div');
+        actionRow.className = 'mt-5 flex flex-wrap items-center gap-3';
+
+        const emailLink = document.createElement('a');
+        emailLink.href = `mailto:${message.email}`;
+        emailLink.className =
+          'inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-semibold text-ink-200 transition hover:border-white/20 hover:bg-white/[0.08] hover:text-white';
+        emailLink.innerHTML = '<span class="size-4">✉</span><span>Reply</span>';
+
+        const copyButton = document.createElement('button');
+        copyButton.type = 'button';
+        copyButton.className =
+          'inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-semibold text-ink-200 transition hover:border-white/20 hover:bg-white/[0.08] hover:text-white';
+        copyButton.textContent = 'Copy email';
+        copyButton.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(message.email);
+            setStatus(`Copied ${message.email}.`, 'success');
+          } catch {
+            setStatus('Could not copy the email.', 'warning');
+          }
+        });
+
+        const markRead = document.createElement('button');
+        markRead.type = 'button';
+        markRead.className =
+          'inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 to-violet-400 px-4 py-2 text-sm font-semibold text-surface-950 transition hover:-translate-y-0.5';
+        markRead.textContent = 'Mark read';
+        markRead.addEventListener('click', async () => {
+          setLoading(true);
+          try {
+            await updateContactMessageStatus(message.id, 'read', accessToken);
+            await bootstrap(accessToken);
+            setStatus('Message marked as read.', 'success');
+          } catch (error) {
+            setStatus(error instanceof Error ? error.message : 'Unable to update message.', 'error');
+          } finally {
+            setLoading(false);
+          }
+        });
+
+        const markReplied = document.createElement('button');
+        markReplied.type = 'button';
+        markReplied.className =
+          'inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 text-sm font-semibold text-emerald-100 transition hover:border-emerald-300/40 hover:bg-emerald-400/20';
+        markReplied.textContent = 'Mark replied';
+        markReplied.addEventListener('click', async () => {
+          setLoading(true);
+          try {
+            await updateContactMessageStatus(message.id, 'replied', accessToken);
+            await bootstrap(accessToken);
+            setStatus('Message marked as replied.', 'success');
+          } catch (error) {
+            setStatus(error instanceof Error ? error.message : 'Unable to update message.', 'error');
+          } finally {
+            setLoading(false);
+          }
+        });
+
+        const headerLine = document.createElement('div');
+        headerLine.className = 'flex flex-wrap items-start gap-3';
+        headerLine.append(title, badge);
+
+        headingWrap.append(headerLine, meta);
+        topRow.append(headingWrap);
+
+        article.append(topRow, body, actionRow);
+        actionRow.append(emailLink, copyButton, markRead, markReplied);
+        adminList.appendChild(article);
+      }
+    };
+
+    const bootstrap = async (accessTokenOverride) => {
+      if (!isConfigured) {
+        setStatus('Add the Supabase URL and anon key to enable the inbox.', 'warning');
+        setPanelVisible(false);
+        return;
+      }
+
+      let session = getStoredAdminSession();
+
+      if (!session && accessTokenOverride) {
+        session = {
+          accessToken: accessTokenOverride,
+          refreshToken: '',
+          expiresAt: Math.floor(Date.now() / 1000) + 3600,
+          tokenType: 'bearer',
+          userEmail: '',
+        };
+      }
+
+      if (!session) {
+        setPanelVisible(false);
+        setStatus('Sign in to unlock the inbox.', 'neutral');
+        return;
+      }
+
+      if (session.expiresAt <= Math.floor(Date.now() / 1000) && session.refreshToken) {
+        try {
+          session = await refreshAdminSession(session);
+          saveAdminSession(session);
+        } catch {
+          clearAdminSession();
+          setPanelVisible(false);
+          setStatus('Your session expired. Sign in again.', 'warning');
+          return;
+        }
+      }
+
+      setPanelVisible(true);
+      if (adminSessionEmail instanceof HTMLElement) {
+        adminSessionEmail.textContent = session.userEmail || 'Signed in';
+      }
+
+      setStatus('Loading messages...', 'neutral');
+      setLoading(true);
+
+      try {
+        const messages = await fetchContactMessages(session.accessToken);
+        renderMessages(messages, session.accessToken);
+        setStatus(`Loaded ${messages.length} message${messages.length === 1 ? '' : 's'}.`, 'success');
+      } catch (error) {
+        setStatus(error instanceof Error ? error.message : 'Unable to load messages.', 'error');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (adminLoginForm instanceof HTMLFormElement) {
+      adminLoginForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        if (!(adminEmail instanceof HTMLInputElement) || !(adminPassword instanceof HTMLInputElement)) {
+          return;
+        }
+
+        setLoading(true);
+        setStatus('Signing in...', 'neutral');
+
+        try {
+          const session = await signInAdmin(adminEmail.value.trim(), adminPassword.value);
+          saveAdminSession(session);
+          await bootstrap(session.accessToken);
+        } catch (error) {
+          setStatus(error instanceof Error ? error.message : 'Unable to sign in.', 'error');
+        } finally {
+          setLoading(false);
+        }
+      });
+    }
+
+    if (adminRefresh instanceof HTMLButtonElement) {
+      adminRefresh.addEventListener('click', async () => {
+        setLoading(true);
+        try {
+          await bootstrap();
+        } finally {
+          setLoading(false);
+        }
+      });
+    }
+
+    if (adminSignOut instanceof HTMLButtonElement) {
+      adminSignOut.addEventListener('click', () => {
+        clearAdminSession();
+        setPanelVisible(false);
+        setStatus('Signed out.', 'neutral');
+      });
+    }
+
+    bootstrap().catch((error) => {
+      setStatus(error instanceof Error ? error.message : 'Unable to load inbox.', 'error');
+    });
+  </script>
+</BaseLayout>

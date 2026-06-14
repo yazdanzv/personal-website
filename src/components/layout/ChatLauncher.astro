@@ -1,0 +1,250 @@
+---
+import { icons } from '../../lib/icons';
+---
+
+<div class="fixed bottom-[calc(5rem+env(safe-area-inset-bottom))] right-[calc(1.25rem+env(safe-area-inset-right))] z-[70] md:bottom-6 md:right-6">
+  <button
+    type="button"
+    data-chat-open
+    class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.08] px-4 py-3 text-sm font-semibold text-ink-100 shadow-[0_18px_50px_rgba(0,0,0,0.28)] backdrop-blur-xl transition duration-300 hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/[0.12]"
+    aria-haspopup="dialog"
+    aria-controls="chat-dialog"
+    aria-expanded="false"
+  >
+    <span class="size-5 shrink-0 text-current" set:html={icons.chat}></span>
+    <span class="hidden sm:inline">Chat</span>
+  </button>
+</div>
+
+<dialog
+  id="chat-dialog"
+  data-chat-dialog
+  class="fixed inset-0 m-0 h-screen w-screen max-w-none bg-transparent p-4 outline-none md:p-6"
+  aria-labelledby="chat-title"
+>
+  <div class="absolute inset-0 bg-surface-950/72 backdrop-blur-md"></div>
+  <div data-chat-backdrop class="absolute inset-0"></div>
+
+  <div class="absolute bottom-4 right-4 w-[min(92vw,28rem)] overflow-hidden rounded-3xl border border-white/10 bg-surface-850/92 shadow-[0_32px_100px_rgba(0,0,0,0.45)] backdrop-blur-2xl md:bottom-6 md:right-6">
+    <div class="flex items-start justify-between gap-4 border-b border-white/10 px-5 py-4">
+      <div>
+        <p class="text-xs uppercase tracking-[0.32em] text-ink-400">Quick message</p>
+        <h2 id="chat-title" class="mt-2 font-display text-2xl font-semibold text-ink-100">Send a message</h2>
+      </div>
+      <button
+        type="button"
+        data-chat-close
+        class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-ink-200 transition duration-300 hover:border-white/20 hover:bg-white/[0.08] hover:text-white"
+        aria-label="Close chat"
+      >
+        <span class="size-4" set:html={icons.close}></span>
+      </button>
+    </div>
+
+    <form data-chat-form class="space-y-4 px-5 py-5">
+      <div class="grid gap-4 sm:grid-cols-2">
+        <label class="grid gap-2">
+          <span class="text-xs uppercase tracking-[0.28em] text-ink-400">Name</span>
+          <input
+            name="name"
+            type="text"
+            required
+            placeholder="Your name"
+            class="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-ink-100 outline-none transition placeholder:text-ink-400 focus:border-cyan-400/40 focus:bg-white/[0.07]"
+          />
+        </label>
+
+        <label class="grid gap-2">
+          <span class="text-xs uppercase tracking-[0.28em] text-ink-400">Email</span>
+          <input
+            name="email"
+            type="email"
+            required
+            placeholder="you@example.com"
+            class="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-ink-100 outline-none transition placeholder:text-ink-400 focus:border-cyan-400/40 focus:bg-white/[0.07]"
+          />
+        </label>
+      </div>
+
+      <label class="grid gap-2">
+        <span class="text-xs uppercase tracking-[0.28em] text-ink-400">Message</span>
+        <textarea
+          name="message"
+          rows="5"
+          required
+          placeholder="Tell me about your project, research idea, or role."
+          class="min-h-32 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-ink-100 outline-none transition placeholder:text-ink-400 focus:border-cyan-400/40 focus:bg-white/[0.07]"
+        ></textarea>
+      </label>
+
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div class="grid gap-1">
+          <p class="text-xs leading-6 text-ink-400">Your message is emailed to me and saved privately for review.</p>
+          <p data-chat-status class="text-xs font-medium text-ink-400" aria-live="polite"></p>
+        </div>
+        <button
+          type="submit"
+          data-chat-submit
+          class="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-accent-400 via-cyan-400 to-violet-400 px-5 py-3 text-sm font-semibold text-surface-950 shadow-[0_18px_42px_rgba(56,189,248,0.24)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_54px_rgba(56,189,248,0.32)]"
+        >
+          <span class="size-4 shrink-0 text-current" set:html={icons.chat}></span>
+          <span>Send message</span>
+        </button>
+      </div>
+
+      <p data-chat-config-note class="hidden rounded-2xl border border-amber-400/20 bg-amber-400/10 px-4 py-3 text-xs leading-6 text-amber-100">
+        The message inbox is not configured yet. Add your Supabase credentials to enable storage.
+      </p>
+    </form>
+  </div>
+</dialog>
+
+<script type="module" define:vars={{ supabaseUrl: import.meta.env.PUBLIC_SUPABASE_URL?.trim() ?? '', supabaseAnonKey: import.meta.env.PUBLIC_SUPABASE_ANON_KEY?.trim() ?? '' }}>
+  const dialog = document.getElementById('chat-dialog');
+  const openButton = document.querySelector('[data-chat-open]');
+  const closeButton = document.querySelector('[data-chat-close]');
+  const form = document.querySelector('[data-chat-form]');
+  const backdrop = document.querySelector('[data-chat-backdrop]');
+  const status = document.querySelector('[data-chat-status]');
+  const submitButton = document.querySelector('[data-chat-submit]');
+  const configNote = document.querySelector('[data-chat-config-note]');
+  const isConfigured = Boolean(supabaseUrl && supabaseAnonKey);
+
+  const setStatus = (message, tone = 'neutral') => {
+    if (!(status instanceof HTMLElement)) return;
+
+    status.textContent = message;
+    status.classList.remove('text-emerald-300', 'text-red-300', 'text-ink-400');
+    status.classList.add(tone === 'success' ? 'text-emerald-300' : tone === 'error' ? 'text-red-300' : 'text-ink-400');
+  };
+
+  const readErrorMessage = async (response, fallback) => {
+    const text = await response.text();
+
+    if (!text) return fallback;
+
+    try {
+      const parsed = JSON.parse(text);
+      return parsed.error_description || parsed.message || parsed.details || parsed.msg || parsed.error || fallback;
+    } catch {
+      return text || fallback;
+    }
+  };
+
+  const normalizeBaseUrl = (value) => value.replace(/\/+$/, '');
+  const buildRestUrl = (path) => `${normalizeBaseUrl(supabaseUrl)}/rest/v1/${path}`;
+
+  const closeDialog = () => {
+    if (dialog instanceof HTMLDialogElement && dialog.open) {
+      dialog.close();
+    }
+  };
+
+  const openDialog = () => {
+    if (!(dialog instanceof HTMLDialogElement)) return;
+
+    if (typeof dialog.showModal === 'function') {
+      dialog.showModal();
+    } else {
+      dialog.setAttribute('open', '');
+    }
+
+    window.setTimeout(() => {
+      const firstInput = dialog.querySelector('input[name="name"]');
+      if (firstInput instanceof HTMLInputElement) {
+        firstInput.focus();
+      }
+    }, 0);
+  };
+
+  const submitContactMessage = async ({ name, email, message }) => {
+    const response = await fetch(buildRestUrl('contact_messages'), {
+      method: 'POST',
+      headers: {
+        apikey: supabaseAnonKey,
+        Authorization: `Bearer ${supabaseAnonKey}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        message,
+        status: 'new',
+        source: 'portfolio-chat',
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(await readErrorMessage(response, 'Unable to save the message.'));
+    }
+  };
+
+  const showConfigState = () => {
+    if (!isConfigured) {
+      if (configNote instanceof HTMLElement) {
+        configNote.classList.remove('hidden');
+      }
+
+      if (submitButton instanceof HTMLButtonElement) {
+        submitButton.disabled = true;
+        submitButton.classList.add('cursor-not-allowed', 'opacity-60');
+      }
+    }
+  };
+
+  showConfigState();
+
+  if (openButton instanceof HTMLButtonElement) {
+    openButton.addEventListener('click', openDialog);
+  }
+
+  if (closeButton instanceof HTMLButtonElement) {
+    closeButton.addEventListener('click', closeDialog);
+  }
+
+  if (backdrop instanceof HTMLElement) {
+    backdrop.addEventListener('click', closeDialog);
+  }
+
+  if (form instanceof HTMLFormElement) {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      if (!isConfigured) {
+        setStatus('Storage is not configured yet.', 'error');
+        return;
+      }
+
+      const data = new FormData(form);
+      const name = String(data.get('name') ?? '').trim();
+      const email = String(data.get('email') ?? '').trim();
+      const message = String(data.get('message') ?? '').trim();
+
+      if (!(submitButton instanceof HTMLButtonElement)) {
+        return;
+      }
+
+      submitButton.disabled = true;
+      submitButton.setAttribute('aria-busy', 'true');
+      setStatus('Saving message...', 'neutral');
+
+      try {
+        await submitContactMessage({ name, email, message });
+        setStatus('Saved to private inbox.', 'success');
+        form.reset();
+
+        window.setTimeout(() => {
+          closeDialog();
+          setStatus('', 'neutral');
+        }, 900);
+      } catch (error) {
+        const messageText = error instanceof Error ? error.message : 'Unable to save the message.';
+        setStatus(messageText, 'error');
+      } finally {
+        submitButton.disabled = false;
+        submitButton.removeAttribute('aria-busy');
+      }
+    });
+  }
+</script>
