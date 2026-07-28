@@ -9,6 +9,7 @@ interface Props {
 
 const { entry, delay = 0 } = Astro.props as Props;
 const accent = toneStyles[entry.tone];
+const summaries = Array.isArray(entry.summary) ? entry.summary : [entry.summary];
 ---
 
 <article
@@ -32,7 +33,11 @@ const accent = toneStyles[entry.tone];
         </p>
         <h3 class="mt-4 font-display text-2xl font-semibold text-ink-100">{entry.role}</h3>
         <p class="mt-2 text-sm uppercase tracking-[0.24em] text-ink-400">{entry.location}</p>
-        <p class="mt-5 text-base leading-8 text-ink-300">{entry.summary}</p>
+        <div class="mt-5 space-y-4">
+          {summaries.map((summary) => (
+            <p class="text-base leading-8 text-ink-300">{summary}</p>
+          ))}
+        </div>
       </div>
     </div>
 

@@ -54,7 +54,7 @@ export interface ExperienceEntry {
   company: string;
   role: string;
   location: string;
-  summary: string;
+  summary: string | string[];
   technologies: string[];
   tone: AccentTone;
 }
@@ -314,21 +314,56 @@ export const profile = {
   ] satisfies InterestCard[],
   experience: [
     {
-      company: 'Workflow Company GmbH',
-      role: 'Software Engineer',
+      company: 'Workflow HR GmbH',
+      role: 'Junior Software Engineer',
       location: 'Vienna, Austria',
-      summary:
-        'Built and maintained production software with a focus on reliability, modern UX, and cloud-native delivery.',
-      technologies: ['Java', 'Spring Boot', 'Hibernate', 'React', 'Docker', 'Kubernetes', 'SQL'],
+      summary: [
+        'Promoted to Junior Software Engineer following a successful internship, continuing to develop and enhance enterprise HR software used by large international organizations.',
+        'Design and implement backend features using Java and Spring Boot, develop and maintain REST APIs, and contribute to the modernization of enterprise applications through Java, Spring, and Hibernate upgrades. Designed and implemented a two-tier caching solution using Caffeine and Redis to improve application performance and scalability.',
+        'Participate in software architecture discussions, technical design, code reviews, and backend optimization initiatives while collaborating in an Agile (Scrum) environment.',
+      ],
+      technologies: [
+        'Java',
+        'Spring Boot',
+        'Spring Framework',
+        'Hibernate',
+        'JPA',
+        'REST APIs',
+        'Redis',
+        'Caffeine',
+        'Microsoft SQL Server',
+        'PostgreSQL',
+        'MySQL',
+        'Docker',
+        'Jenkins',
+        'Grafana',
+        'JavaMelody',
+        'ActiveMQ',
+        'Git',
+      ],
       tone: 'cyan',
     },
     {
-      company: 'Workflow Company GmbH',
+      company: 'Workflow HR GmbH',
       role: 'Software Engineering Intern (IAESTE)',
       location: 'Vienna, Austria',
-      summary:
-        'Contributed to engineering workflows, feature delivery, and team collaboration in a professional software environment.',
-      technologies: ['Software Engineering', 'Product Development', 'Team Collaboration'],
+      summary: [
+        'Selected for an IAESTE Software Engineering Internship at Workflow HR GmbH, contributing to the development of enterprise HR software used by large international organizations.',
+        'Worked on backend development using Java, Spring Framework, Hibernate, and Microsoft SQL Server, while contributing to REST APIs, business logic, and application maintenance. Collaborated with cross-functional teams in an Agile (Scrum) environment and gained hands-on experience with modern software engineering practices.',
+      ],
+      technologies: [
+        'Java',
+        'Spring Framework',
+        'Hibernate',
+        'JUnit 5',
+        'Vaadin',
+        'Maven',
+        'Jetty',
+        'Microsoft SQL Server',
+        'JavaScript',
+        'React',
+        'Git',
+      ],
       tone: 'violet',
     },
     {
