@@ -150,7 +150,7 @@ export const profile = {
     ],
     stats: [
       { label: 'Publications', value: '6+' },
-      { label: 'Citations', value: '26' },
+      { label: 'Citations', value: '31' },
       { label: 'h-index', value: '2' },
     ] satisfies Stat[],
     primaryActions: [
@@ -229,7 +229,7 @@ export const profile = {
         tone: 'cyan',
       },
       {
-        value: '26',
+        value: '31',
         label: 'Academic Citations',
         tone: 'violet',
       },
@@ -379,7 +379,7 @@ export const profile = {
   publications: {
     stats: [
       { label: 'Publications', value: '6+' },
-      { label: 'Citations', value: '26' },
+      { label: 'Citations', value: '31' },
       { label: 'h-index', value: '2' },
     ] satisfies Stat[],
     featured: [
@@ -390,7 +390,7 @@ export const profile = {
           'A compact transformer-focused study that balances performance, efficiency, and practical deployment considerations.',
         tone: 'cyan',
         tags: ['BERT', 'Distillation', 'NLP'],
-        citationCount: 14,
+        citationCount: 17,
         indicator: 'Scholar indexed',
         url: 'https://ieeexplore.ieee.org/document/10874673',
       },
@@ -412,7 +412,7 @@ export const profile = {
           'A multimodal diagnostic approach that combines handwriting sources for stronger clinical decision support.',
         tone: 'emerald',
         tags: ['Healthcare AI', 'Handwriting', 'Multimodal'],
-        citationCount: 1,
+        citationCount: 2,
         indicator: 'Scholar indexed',
         url: 'https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0328722',
       },
@@ -423,7 +423,7 @@ export const profile = {
           'Feature fusion and regularization strategies for more resilient handwriting-based dysgraphia detection.',
         tone: 'amber',
         tags: ['Feature Fusion', 'Regularization', 'Detection'],
-        citationCount: 1,
+        citationCount: 2,
         indicator: 'Scholar indexed',
         url: 'https://ieeexplore.ieee.org/document/11006233',
       },
