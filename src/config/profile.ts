@@ -150,7 +150,7 @@ export const profile = {
     ],
     stats: [
       { label: 'Publications', value: '6+' },
-      { label: 'Citations', value: '31' },
+      { label: 'Citations', value: '35' },
       { label: 'h-index', value: '2' },
     ] satisfies Stat[],
     primaryActions: [
@@ -229,7 +229,7 @@ export const profile = {
         tone: 'cyan',
       },
       {
-        value: '31',
+        value: '35',
         label: 'Academic Citations',
         tone: 'violet',
       },
@@ -414,7 +414,7 @@ export const profile = {
   publications: {
     stats: [
       { label: 'Publications', value: '6+' },
-      { label: 'Citations', value: '31' },
+      { label: 'Citations', value: '35' },
       { label: 'h-index', value: '2' },
     ] satisfies Stat[],
     featured: [
@@ -425,7 +425,7 @@ export const profile = {
           'A compact transformer-focused study that balances performance, efficiency, and practical deployment considerations.',
         tone: 'cyan',
         tags: ['BERT', 'Distillation', 'NLP'],
-        citationCount: 17,
+        citationCount: 19,
         indicator: 'Scholar indexed',
         url: 'https://ieeexplore.ieee.org/document/10874673',
       },
@@ -436,7 +436,7 @@ export const profile = {
           'Transformer modeling for Persian sentiment analysis with an emphasis on language-specific signal and robustness.',
         tone: 'violet',
         tags: ['Persian NLP', 'Sentiment Analysis', 'Transformers'],
-        citationCount: 10,
+        citationCount: 12,
         indicator: 'Scholar indexed',
         url: 'https://ieeexplore.ieee.org/document/10533353/',
       },
