@@ -150,8 +150,8 @@ export const profile = {
     ],
     stats: [
       { label: 'Publications', value: '6+' },
-      { label: 'Citations', value: '35' },
-      { label: 'h-index', value: '2' },
+      { label: 'Citations', value: '38' },
+      { label: 'h-index', value: '3' },
     ] satisfies Stat[],
     primaryActions: [
       {
@@ -229,7 +229,7 @@ export const profile = {
         tone: 'cyan',
       },
       {
-        value: '35',
+        value: '38',
         label: 'Academic Citations',
         tone: 'violet',
       },
@@ -414,8 +414,8 @@ export const profile = {
   publications: {
     stats: [
       { label: 'Publications', value: '6+' },
-      { label: 'Citations', value: '35' },
-      { label: 'h-index', value: '2' },
+      { label: 'Citations', value: '38' },
+      { label: 'h-index', value: '3' },
     ] satisfies Stat[],
     featured: [
       {
@@ -425,7 +425,7 @@ export const profile = {
           'A compact transformer-focused study that balances performance, efficiency, and practical deployment considerations.',
         tone: 'cyan',
         tags: ['BERT', 'Distillation', 'NLP'],
-        citationCount: 19,
+        citationCount: 21,
         indicator: 'Scholar indexed',
         url: 'https://ieeexplore.ieee.org/document/10874673',
       },
@@ -447,7 +447,7 @@ export const profile = {
           'A multimodal diagnostic approach that combines handwriting sources for stronger clinical decision support.',
         tone: 'emerald',
         tags: ['Healthcare AI', 'Handwriting', 'Multimodal'],
-        citationCount: 2,
+        citationCount: 3,
         indicator: 'Scholar indexed',
         url: 'https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0328722',
       },
