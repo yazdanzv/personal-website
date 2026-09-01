@@ -150,7 +150,7 @@ export const profile = {
     ],
     stats: [
       { label: 'Publications', value: '6+' },
-      { label: 'Citations', value: '38' },
+      { label: 'Citations', value: '40' },
       { label: 'h-index', value: '3' },
     ] satisfies Stat[],
     primaryActions: [
@@ -229,7 +229,7 @@ export const profile = {
         tone: 'cyan',
       },
       {
-        value: '38',
+        value: '40',
         label: 'Academic Citations',
         tone: 'violet',
       },
@@ -414,7 +414,7 @@ export const profile = {
   publications: {
     stats: [
       { label: 'Publications', value: '6+' },
-      { label: 'Citations', value: '38' },
+      { label: 'Citations', value: '40' },
       { label: 'h-index', value: '3' },
     ] satisfies Stat[],
     featured: [
@@ -425,7 +425,7 @@ export const profile = {
           'A compact transformer-focused study that balances performance, efficiency, and practical deployment considerations.',
         tone: 'cyan',
         tags: ['BERT', 'Distillation', 'NLP'],
-        citationCount: 21,
+        citationCount: 22,
         indicator: 'Scholar indexed',
         url: 'https://ieeexplore.ieee.org/document/10874673',
       },
@@ -458,7 +458,7 @@ export const profile = {
           'Feature fusion and regularization strategies for more resilient handwriting-based dysgraphia detection.',
         tone: 'amber',
         tags: ['Feature Fusion', 'Regularization', 'Detection'],
-        citationCount: 2,
+        citationCount: 3,
         indicator: 'Scholar indexed',
         url: 'https://ieeexplore.ieee.org/document/11006233',
       },
