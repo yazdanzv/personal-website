@@ -1,15 +1,16 @@
 # Yazdan Zandiye Vakili Portfolio
 
-Premium personal portfolio site built with Astro, Tailwind CSS v4, and TypeScript.
+Engineering-first personal portfolio built with Astro, Tailwind CSS, and TypeScript.
 
 ## Features
 
-- Dark, AI-lab inspired visual design
-- Animated particle network and moving grid background
-- Glassmorphism cards and premium hover states
+- Restrained editorial design built around an engineering field-notes theme
+- Original diagrams for evolutionary architecture and research methods
+- Authentic professional photography and responsive layouts
+- Engineering case studies focused on enterprise modernization and distributed systems
 - SEO metadata, Open Graph, Twitter cards, structured data, sitemap, and robots.txt
-- Generated CV download endpoint
-- Floating chat widget with persistent message storage via Supabase
+- Current software-engineering résumé download
+- Contact form with persistent message storage via Supabase
 - Private inbox page for reviewing submitted messages
 - GitHub Pages deployment workflow
 
@@ -36,11 +37,11 @@ npm run build
 
 ## CV Download
 
-The hero button points to `/cv.pdf`, which is the uploaded academic CV in `public/cv.pdf`.
+The hero button points to `/cv.pdf`, which is the current software-engineering résumé in `public/cv.pdf`.
 
 ## Private Inbox Setup
 
-The floating chat widget stores submissions in Supabase, and the private inbox lives at `/admin/messages`.
+The contact form stores submissions in Supabase, and the private inbox lives at `/admin/messages`.
 
 1. Create a Supabase project.
 2. Run the SQL in `supabase/schema.sql` in the Supabase SQL editor.

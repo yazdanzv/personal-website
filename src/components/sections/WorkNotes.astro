@@ -1,0 +1,23 @@
+---
+import { profile } from '../../config/profile';
+const resolveAssetUrl = (value: string) => new URL(value.replace(/^\/+/, ''), Astro.url).href;
+---
+
+<section class="section-rule py-20 md:py-28">
+  <div class="page-shell">
+    <div class="grid gap-4 lg:grid-cols-[1.65fr_0.75fr] lg:items-end">
+      <figure class="overflow-hidden border border-white/15 bg-surface-900" data-reveal>
+        <img src={resolveAssetUrl(profile.workPhotos[0].src)} alt={profile.workPhotos[0].alt} width="2048" height="1365" loading="lazy" class="aspect-[16/10] w-full object-cover object-center" />
+      </figure>
+      <div class="grid gap-4" data-reveal style="--reveal-delay:100ms">
+        <div class="border-l-2 border-signal pl-5">
+          <p class="section-index text-signal">Work notes</p>
+          <p class="mt-4 text-xl leading-8 text-ink-200">Good modernization work is collaborative. The architecture matters, but so do shared context, code review, mentoring, and the patience to bring a team through change.</p>
+        </div>
+        <figure class="hidden overflow-hidden border border-white/15 sm:block">
+          <img src={resolveAssetUrl(profile.workPhotos[1].src)} alt={profile.workPhotos[1].alt} width="1080" height="1350" loading="lazy" class="aspect-[16/9] w-full object-cover object-center" />
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>

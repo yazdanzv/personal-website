@@ -11,7 +11,7 @@ interface Props {
 }
 
 const {
-  as: Tag = 'div',
+  as: _tag = 'div',
   tone = 'cyan',
   class: className = '',
   delay = 0,
@@ -21,7 +21,7 @@ const {
 const accent = toneStyles[tone];
 ---
 
-<Tag
+<div
   class={`group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.05] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-xl transition duration-300 ${
     interactive ? 'hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.08]' : ''
   } ${className}`}
@@ -39,4 +39,4 @@ const accent = toneStyles[tone];
   <div class="relative z-10">
     <slot />
   </div>
-</Tag>
+</div>

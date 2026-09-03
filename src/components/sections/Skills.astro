@@ -1,20 +1,24 @@
 ---
 import { profile } from '../../config/profile';
-import SectionShell from '../ui/SectionShell.astro';
-import SkillGroup from '../ui/SkillGroup.astro';
-
 ---
 
-<SectionShell
-  id="skills"
-  eyebrow="SKILLS"
-  title="The Tools Behind My Work"
-  description="Technologies, frameworks, and platforms I rely on to build software systems, conduct research, and transform ideas into practical solutions."
-  tone="blue"
->
-  <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-    {profile.skills.map((group, index) => (
-      <SkillGroup group={group} delay={index * 70} />
-    ))}
+<section id="skills" class="section-rule py-20 md:py-28">
+  <div class="page-shell">
+    <header class="grid gap-6 lg:grid-cols-[0.35fr_1fr]" data-reveal>
+      <p class="section-index">04 · Toolkit</p>
+      <div><h2 class="text-4xl font-medium text-ink-100 md:text-6xl">Technical depth, not a logo wall.</h2><p class="mt-5 max-w-2xl text-lg leading-8 text-ink-300">Grouped by how these technologies relate to my work—not presented as equal levels of expertise.</p></div>
+    </header>
+    <div class="mt-14 grid gap-px border border-white/10 bg-white/10 lg:grid-cols-3">
+      {profile.skills.map((group, index) => (
+        <article class="bg-surface-950 p-6 md:p-8" data-reveal style={`--reveal-delay:${index * 70}ms`}>
+          <span class="font-mono text-xs text-ink-400">0{index + 1}</span>
+          <h3 class="mt-6 text-2xl font-medium text-ink-100">{group.title}</h3>
+          <p class="mt-3 min-h-14 text-sm leading-6 text-ink-400">{group.description}</p>
+          <ul class="mt-7 border-t border-white/10 pt-5">
+            {group.items.map((item) => <li class="flex items-center gap-3 border-b border-white/[0.06] py-2.5 text-sm text-ink-200"><span class="h-1 w-1 bg-accent-300"></span>{item}</li>)}
+          </ul>
+        </article>
+      ))}
+    </div>
   </div>
-</SectionShell>
+</section>

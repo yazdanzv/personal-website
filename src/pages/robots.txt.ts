@@ -5,12 +5,12 @@ import { profile } from '../config/profile';
 export const prerender = true;
 
 export const GET: APIRoute = ({ site }) => {
-  const sitemapUrl = new URL('sitemap-index.xml', site ?? profile.seo.siteUrl).href;
+  const sitemapUrl = new URL(`${import.meta.env.BASE_URL}sitemap-index.xml`, site ?? profile.seo.siteUrl).href;
 
   return new Response(
     `User-agent: *
 Allow: /
-Disallow: /admin/
+Disallow: ${import.meta.env.BASE_URL}admin/
 Sitemap: ${sitemapUrl}
 `,
     {

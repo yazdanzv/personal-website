@@ -9,6 +9,7 @@ export type IconName =
   | 'mail'
   | 'chat'
   | 'close'
+  | 'lock'
   | 'sun'
   | 'moon'
   | 'academic'

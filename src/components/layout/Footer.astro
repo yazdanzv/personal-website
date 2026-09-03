@@ -1,10 +1,18 @@
 ---
+import { profile } from '../../config/profile';
 ---
 
-<footer class="relative border-t border-white/10 py-12">
-  <div class="mx-auto flex w-full max-w-7xl flex-col gap-8 px-6 lg:px-8">
-    <div class="pt-3 text-center text-sm text-ink-400">
-      <p>© 2026 Yazdan Zandiye Vakili. All rights reserved.</p>
+<footer class="section-rule py-10">
+  <div class="page-shell flex flex-col gap-5 text-sm text-ink-400 sm:flex-row sm:items-end sm:justify-between">
+    <div>
+      <p class="font-medium text-ink-200">{profile.name}</p>
+      <p class="mt-1">Full-Stack Software Engineer · Vienna, Austria</p>
+    </div>
+    <div class="flex flex-wrap gap-5">
+      <a class="hover:text-ink-100" href={profile.links.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+      <a class="hover:text-ink-100" href={profile.links.github} target="_blank" rel="noreferrer">GitHub</a>
+      <a class="hover:text-ink-100" href={profile.links.scholar} target="_blank" rel="noreferrer">Scholar</a>
+      <span>© 2026</span>
     </div>
   </div>
 </footer>

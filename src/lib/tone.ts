@@ -12,6 +12,42 @@ export const toneStyles: Record<
     line: string;
   }
 > = {
+  teal: {
+    text: 'text-accent-300',
+    softText: 'text-accent-300/85',
+    pill: 'border-accent-300/25 bg-accent-400/10 text-accent-300',
+    glow: '',
+    ring: 'ring-accent-300/20',
+    orb: 'bg-accent-300',
+    line: 'from-accent-300/70 to-transparent',
+  },
+  red: {
+    text: 'text-signal',
+    softText: 'text-signal/85',
+    pill: 'border-signal/30 bg-signal/10 text-signal',
+    glow: '',
+    ring: 'ring-signal/20',
+    orb: 'bg-signal',
+    line: 'from-signal/70 to-transparent',
+  },
+  sand: {
+    text: 'text-[#d8bd83]',
+    softText: 'text-[#d8bd83]/85',
+    pill: 'border-[#d8bd83]/25 bg-[#d8bd83]/10 text-[#d8bd83]',
+    glow: '',
+    ring: 'ring-[#d8bd83]/20',
+    orb: 'bg-[#d8bd83]',
+    line: 'from-[#d8bd83]/70 to-transparent',
+  },
+  slate: {
+    text: 'text-ink-300',
+    softText: 'text-ink-300/85',
+    pill: 'border-white/15 bg-white/5 text-ink-300',
+    glow: '',
+    ring: 'ring-white/10',
+    orb: 'bg-ink-400',
+    line: 'from-ink-400/50 to-transparent',
+  },
   cyan: {
     text: 'text-cyan-300',
     softText: 'text-cyan-200/[0.85]',

@@ -15,7 +15,7 @@ import { icons } from '../../lib/icons';
       <GlassCard tone="violet" delay={0} class="p-8 md:p-10">
         <p class="text-xs uppercase tracking-[0.36em] text-ink-400">Private inbox</p>
         <h1 class="mt-4 max-w-2xl font-display text-4xl font-semibold leading-[1.03] text-ink-100 md:text-6xl">
-          Messages from the chat widget
+          Messages from the website contact form
         </h1>
         <p class="mt-5 max-w-2xl text-base leading-8 text-ink-200 md:text-lg">
           Sign in to review stored messages, update their status, and keep a clean record of inquiries from the
@@ -142,7 +142,7 @@ import { icons } from '../../lib/icons';
     </GlassCard>
   </div>
 
-  <script type="module" define:vars={{ supabaseUrl: import.meta.env.PUBLIC_SUPABASE_URL?.trim() ?? '', supabaseAnonKey: import.meta.env.PUBLIC_SUPABASE_ANON_KEY?.trim() ?? '' }}>
+  <script type="module" is:inline define:vars={{ supabaseUrl: import.meta.env.PUBLIC_SUPABASE_URL?.trim() ?? '', supabaseAnonKey: import.meta.env.PUBLIC_SUPABASE_ANON_KEY?.trim() ?? '' }}>
     const adminSessionKey = 'yazdan-admin-session';
     const adminStatus = document.querySelector('[data-admin-status]');
     const adminSession = document.querySelector('[data-admin-session]');

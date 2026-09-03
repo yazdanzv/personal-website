@@ -2,7 +2,6 @@
 import "../styles/global.css";
 
 import BackgroundEffects from '../components/layout/BackgroundEffects.astro';
-import ChatLauncher from '../components/layout/ChatLauncher.astro';
 import Footer from '../components/layout/Footer.astro';
 import SiteHeader from '../components/layout/SiteHeader.astro';
 import { profile } from '../config/profile';
@@ -21,7 +20,8 @@ const {
   robots = 'index,follow,max-image-preview:large',
 } = Astro.props as Props;
 
-const resolveAssetUrl = (value: string) => new URL(value.replace(/^\/+/, ''), Astro.url).href;
+const resolveAssetUrl = (value: string) =>
+  new URL(`${import.meta.env.BASE_URL}${value.replace(/^\/+/, '')}`, Astro.site ?? Astro.url.origin).href;
 const canonical = new URL(Astro.url.pathname, profile.seo.siteUrl).href;
 const imageUrl = image.startsWith('http') ? image : resolveAssetUrl(image);
 const jsonLd = JSON.stringify(
@@ -85,14 +85,14 @@ const jsonLd = JSON.stringify(
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="color-scheme" content="dark light" />
-    <meta name="theme-color" content="#050816" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#101312" />
     <meta name="robots" content={robots} />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href={resolveAssetUrl('/favicon.svg')} type="image/svg+xml" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="sitemap" href={resolveAssetUrl('/sitemap-index.xml')} />
     <meta property="og:type" content="profile" />
     <meta property="og:site_name" content={profile.name} />
     <meta property="og:title" content={title} />
@@ -107,35 +107,11 @@ const jsonLd = JSON.stringify(
     <meta name="twitter:image:alt" content={profile.name} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
-    <script is:inline>
-      (() => {
-        const storageKey = 'yazdan-theme';
-        const root = document.documentElement;
-        let theme = 'dark';
-
-        try {
-          const storedTheme = localStorage.getItem(storageKey);
-          if (storedTheme === 'light' || storedTheme === 'dark') {
-            theme = storedTheme;
-          }
-        } catch {
-          theme = 'dark';
-        }
-
-        root.classList.add(theme === 'light' ? 'theme-light' : 'theme-dark');
-        root.style.colorScheme = theme;
-
-        const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-        if (themeColorMeta) {
-          themeColorMeta.setAttribute('content', theme === 'light' ? '#f8fafc' : '#050816');
-        }
-      })();
-    </script>
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <script type="application/ld+json" set:html={jsonLd}></script>
+    <script type="application/ld+json" set:html={jsonLd} is:inline></script>
   </head>
   <body class="overflow-x-hidden">
     <a class="skip-link" href="#content">Skip to content</a>
@@ -146,51 +122,14 @@ const jsonLd = JSON.stringify(
         <slot />
       </main>
       <Footer />
-      <ChatLauncher />
     </div>
 
-    <script type="module">
+    <script type="module" is:inline>
       const doc = document.documentElement;
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const themeToggles = Array.from(document.querySelectorAll('[data-theme-toggle]'));
-      const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-      const storageKey = 'yazdan-theme';
-
       if (prefersReducedMotion) {
         doc.classList.add('reduced-motion');
       }
-
-      const applyTheme = (theme) => {
-        const nextTheme = theme === 'light' ? 'light' : 'dark';
-        const isLight = nextTheme === 'light';
-
-        doc.classList.toggle('theme-light', isLight);
-        doc.classList.toggle('theme-dark', !isLight);
-        doc.style.colorScheme = nextTheme;
-
-        if (themeColorMeta) {
-          themeColorMeta.setAttribute('content', isLight ? '#f8fafc' : '#050816');
-        }
-
-        themeToggles.forEach((toggle) => {
-          toggle.setAttribute('aria-pressed', String(isLight));
-          toggle.setAttribute('aria-label', isLight ? 'Switch to dark theme' : 'Switch to light theme');
-        });
-
-        try {
-          localStorage.setItem(storageKey, nextTheme);
-        } catch {
-          // Ignore storage failures.
-        }
-      };
-
-      applyTheme(doc.classList.contains('theme-light') ? 'light' : 'dark');
-
-      themeToggles.forEach((themeToggle) => {
-        themeToggle.addEventListener('click', () => {
-          applyTheme(doc.classList.contains('theme-light') ? 'dark' : 'light');
-        });
-      });
 
       const revealTargets = Array.from(document.querySelectorAll('[data-reveal]'));
 
