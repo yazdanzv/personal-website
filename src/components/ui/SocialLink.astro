@@ -4,6 +4,6 @@ interface Props { href: string; label: string; icon: keyof typeof icons; class?:
 const { href, label, icon, class: className = '' } = Astro.props as Props;
 const external = href.startsWith('http');
 ---
-<a href={href} class={`inline-flex items-center gap-2 border-b border-white/20 pb-1 text-sm text-ink-300 transition hover:border-accent-300 hover:text-accent-300 ${className}`} target={external ? '_blank' : undefined} rel={external ? 'noreferrer noopener' : undefined}>
+<a href={href} class={`inline-flex min-h-11 items-center gap-2 border-b border-line/30 text-sm text-ink-300 transition hover:border-accent-300 hover:text-accent-300 ${className}`} target={external ? '_blank' : undefined} rel={external ? 'noreferrer noopener' : undefined}>
   <span class="size-4" set:html={icons[icon]}></span><span>{label}</span>
 </a>

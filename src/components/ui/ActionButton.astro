@@ -3,11 +3,11 @@ import { icons } from '../../lib/icons';
 interface Props { href: string; label: string; variant?: 'primary' | 'secondary' | 'ghost'; icon?: keyof typeof icons; external?: boolean; download?: boolean; class?: string; }
 const { href, label, variant = 'primary', icon = 'arrow', external = false, download = false, class: className = '' } = Astro.props as Props;
 const variants = {
-  primary: 'border border-paper bg-paper text-surface-950 hover:bg-white',
-  secondary: 'border border-white/25 bg-transparent text-ink-100 hover:border-accent-300 hover:text-accent-300',
-  ghost: 'border-b border-white/25 px-0 text-ink-300 hover:border-ink-100 hover:text-ink-100',
+  primary: 'border border-paper bg-paper text-surface-950 hover:bg-paper/85',
+  secondary: 'border border-line/30 bg-transparent text-ink-100 hover:border-accent-300 hover:text-accent-300',
+  ghost: 'border-b border-line/30 px-0 text-ink-300 hover:border-ink-100 hover:text-ink-100',
 };
 ---
-<a href={href} class={`inline-flex items-center justify-center gap-2 px-5 py-3 text-sm font-medium transition ${variants[variant]} ${className}`} target={external ? '_blank' : undefined} rel={external ? 'noreferrer noopener' : undefined} download={download ? 'Yazdan-Zandiye-Vakili-Resume.pdf' : undefined}>
+<a href={href} class={`inline-flex min-h-11 items-center justify-center gap-2 px-5 py-2 text-sm font-medium transition ${variants[variant]} ${className}`} target={external ? '_blank' : undefined} rel={external ? 'noreferrer noopener' : undefined} download={download ? 'Yazdan-Zandiye-Vakili-Resume.pdf' : undefined}>
   <span class="size-4 shrink-0" set:html={icons[icon]}></span><span>{label}</span>
 </a>

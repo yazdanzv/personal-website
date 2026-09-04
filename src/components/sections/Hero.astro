@@ -10,7 +10,7 @@ const resolveAssetUrl = (value: string) => new URL(value.replace(/^\/+/, ''), As
     <div data-reveal>
       <div class="mb-8 flex items-center gap-4">
         <span class="section-index">Full-stack software engineer</span>
-        <span class="h-px flex-1 bg-white/10"></span>
+        <span class="h-px flex-1 bg-line/15"></span>
         <span class="hidden font-mono text-[10px] uppercase tracking-[0.14em] text-ink-400 sm:block">Vienna · AT</span>
       </div>
 
@@ -43,11 +43,16 @@ const resolveAssetUrl = (value: string) => new URL(value.replace(/^\/+/, ''), As
 
     <aside class="relative" data-reveal style="--reveal-delay:100ms">
       <div class="relative ml-auto max-w-md">
-        <div class="absolute -left-5 top-8 z-10 hidden border border-signal/50 bg-surface-950 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.14em] text-signal sm:block">Distributed systems</div>
-        <div class="overflow-hidden border border-white/15 bg-surface-900 p-3">
+        <div
+          class="absolute left-3 top-5 z-10 border border-signal/50 bg-surface-950 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.14em] text-signal transition duration-200 sm:-left-5 sm:top-8"
+          data-portrait-label
+          data-labels={JSON.stringify(profile.hero.focus)}
+          aria-hidden="true"
+        >{profile.hero.focus[0]}</div>
+        <div class="overflow-hidden border border-line/20 bg-surface-900 p-3">
           <img src={resolveAssetUrl(profile.photo.src)} alt={profile.photo.alt} width="1280" height="1280" loading="eager" fetchpriority="high" class="aspect-[4/5] w-full object-cover object-center grayscale-[12%]" />
         </div>
-        <div class="grid grid-cols-[1fr_auto] gap-5 border-x border-b border-white/15 px-4 py-4">
+        <div class="grid grid-cols-[1fr_auto] gap-5 border-x border-b border-line/20 px-4 py-4">
           <p class="text-sm leading-6 text-ink-300">{profile.hero.status}</p>
           <span class="mt-2 h-2 w-2 bg-accent-300" aria-hidden="true"></span>
         </div>
@@ -55,12 +60,37 @@ const resolveAssetUrl = (value: string) => new URL(value.replace(/^\/+/, ''), As
     </aside>
   </div>
 
-  <div class="page-shell mt-14 grid border-y border-white/10 sm:grid-cols-2 lg:grid-cols-4" data-reveal>
+  <div class="page-shell mt-14 grid border-y border-line/15 sm:grid-cols-2 lg:grid-cols-4" data-reveal>
     {profile.hero.focus.map((item, index) => (
-      <div class="flex items-center gap-3 border-white/10 px-4 py-4 sm:border-r lg:last:border-r-0">
+      <div class="flex items-center gap-3 border-line/15 px-4 py-4 sm:border-r lg:last:border-r-0">
         <span class="font-mono text-[10px] text-ink-400">0{index + 1}</span>
         <span class="text-sm text-ink-200">{item}</span>
       </div>
     ))}
   </div>
+
+  <script>
+    const portraitLabel = document.querySelector('[data-portrait-label]');
+
+    if (portraitLabel instanceof HTMLElement && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      try {
+        const labels = JSON.parse(portraitLabel.dataset.labels ?? '[]');
+        let labelIndex = 0;
+
+        if (Array.isArray(labels) && labels.length > 1) {
+          window.setInterval(() => {
+            if (document.hidden) return;
+            portraitLabel.classList.add('translate-y-1', 'opacity-0');
+            window.setTimeout(() => {
+              labelIndex = (labelIndex + 1) % labels.length;
+              portraitLabel.textContent = labels[labelIndex];
+              portraitLabel.classList.remove('translate-y-1', 'opacity-0');
+            }, 180);
+          }, 2800);
+        }
+      } catch {
+        // Keep the initial label if its data cannot be read.
+      }
+    }
+  </script>
 </section>

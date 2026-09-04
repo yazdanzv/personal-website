@@ -5,7 +5,34 @@ export interface ActionLink { label: string; href: string; variant?: 'primary' |
 export interface SocialLink { label: string; href: string; icon: 'github' | 'linkedin' | 'scholar' | 'mail'; }
 export interface Stat { label: string; value: string; }
 export interface ExperienceEntry { company: string; role: string; period: string; location: string; summary: string | string[]; technologies: string[]; tone: AccentTone; }
-export interface PublicationEntry { title: string; area: string; summary: string; tone: AccentTone; tags: string[]; citationCount: number; url?: string; ctaLabel?: string; indicator: string; contribution?: string; result?: string; }
+export interface PublicationEntry {
+  title: string;
+  area: string;
+  summary: string;
+  tone: AccentTone;
+  tags: string[];
+  citationCount: number;
+  url?: string;
+  doi?: string;
+  doiUrl?: string;
+  venue?: string;
+  year?: number;
+  pages?: string;
+  authorRole?: string;
+  ctaLabel?: string;
+  indicator: string;
+  problem?: string;
+  approach?: string;
+  contribution?: string;
+  result?: string;
+  figure?: {
+    src: string;
+    alt: string;
+    caption: string;
+    width: number;
+    height: number;
+  };
+}
 export interface SkillGroup { title: string; description?: string; items: string[]; tone: AccentTone; }
 
 export const profile = {
@@ -15,7 +42,11 @@ export const profile = {
   email: 'yazdanzv.1378@gmail.com',
   photo: { src: '/headshot.jpg', alt: 'Portrait of Yazdan Zandiye Vakili' },
   workPhotos: [
-    { src: '/work-team.jpeg', alt: 'Yazdan with colleagues at the office' },
+    {
+      src: '/work-team.jpeg',
+      alt: 'Yazdan with colleagues at the Workflow office in Vienna',
+      caption: 'Building and modernizing enterprise HR software with the Workflow team in Vienna.',
+    },
     { src: '/work-collage.jpeg', alt: 'A collage of team activities at the office' },
   ],
   seo: {
@@ -31,16 +62,16 @@ export const profile = {
     cv: 'cv.pdf',
   },
   navigation: [
-    { label: 'Engineering', href: '#engineering' },
     { label: 'Experience', href: '#experience' },
     { label: 'Research', href: '#research' },
+    { label: 'Engineering', href: '#engineering' },
     { label: 'About', href: '#about' },
     { label: 'Contact', href: '#contact' },
   ] satisfies NavLink[],
   hero: {
-    intro: 'I modernize enterprise software by designing safe paths between legacy systems and the architecture that comes next.',
-    subline: 'My work spans Java and Spring platforms, distributed caching, migration architecture, and reliable business systems. Research in NLP and machine learning adds a second lens to how I approach difficult technical problems.',
-    status: 'Based in Vienna and exploring stronger software engineering opportunities.',
+    intro: 'I modernize enterprise software without breaking the workflows people already rely on.',
+    subline: 'My work spans Java and Spring, distributed systems, and migration architecture—supported by research in NLP and machine learning.',
+    status: 'Vienna-based. Open to relevant engineering roles across Austria and selected European hubs.',
     focus: ['Enterprise modernization', 'Distributed systems', 'Java & Spring', 'System design'],
     stats: [
       { label: 'Publications', value: '6+' },
@@ -48,7 +79,7 @@ export const profile = {
       { label: 'h-index', value: '3' },
     ] satisfies Stat[],
     primaryActions: [
-      { label: 'View résumé', href: 'cv.pdf', variant: 'primary', icon: 'download', download: true },
+      { label: 'Download résumé', href: 'cv.pdf', variant: 'primary', icon: 'download', download: true },
       { label: 'Contact me', href: '#contact', variant: 'secondary', icon: 'arrow' },
       { label: 'LinkedIn', href: 'https://www.linkedin.com/in/yazdanzv/', variant: 'ghost', icon: 'external', external: true },
     ] satisfies ActionLink[],
@@ -102,43 +133,78 @@ export const profile = {
   experience: [
     {
       company: 'Workflow GmbH', role: 'Software Engineer · Previously Software Engineering Intern', period: 'Sep 2024 – Present', location: 'Vienna, Austria', tone: 'teal',
-      summary: 'Modernizing enterprise platforms across runtime, persistence, caching, user-interface, synchronization, and localization layers. The work combines hands-on implementation with system design, technical ownership, code reviews, and collaboration across teams.',
+      summary: 'Modernizing a mature enterprise platform across Java, persistence, caching, UI, synchronization, and localization—with hands-on implementation and technical ownership.',
       technologies: ['Java', 'Spring Boot', 'Hibernate / JPA', 'Redis', 'Vaadin', 'SQL'],
     },
     {
       company: 'Karyar College', role: 'Programming Mentor & Course Supervisor', period: 'Jul 2020 – Oct 2024', location: 'Tehran, Iran', tone: 'sand',
-      summary: 'Mentored students, reviewed code, debugged programming problems, and delivered workshops in Python, Django, REST APIs, SQL, Pandas, NumPy, socket programming, and object-oriented programming.',
+      summary: 'Mentored students, reviewed code, and taught Python, Django, APIs, SQL, and core programming practices.',
       technologies: ['Python', 'Django', 'REST APIs', 'SQL', 'Mentoring'],
     },
     {
       company: 'Tadbir Pardaz Company', role: 'Part-time Backend Developer', period: 'Dec 2022 – Dec 2023', location: 'Tehran, Iran', tone: 'red',
-      summary: 'Developed backend services for financial and trading systems using C#, ASP.NET, microservice-based architecture, and RabbitMQ for asynchronous communication and transaction-processing workflows.',
+      summary: 'Built backend services for financial and trading workflows with C#, ASP.NET, microservices, and RabbitMQ.',
       technologies: ['C#', 'ASP.NET', 'RabbitMQ', 'Microservices', 'Confluence'],
     },
   ] satisfies ExperienceEntry[],
   research: {
-    intro: 'My interest in information retrieval and NLP began with a university course during my bachelor’s degree. It grew into research on Transformer models, sentiment analysis, model efficiency, and trustworthy machine learning.',
+    intro: 'I study efficient NLP systems, Persian sentiment analysis, and trustworthy machine learning—work that began with an information-retrieval course during my bachelor’s degree.',
     featured: [
       {
-        title: 'Enhancing Sentiment Analysis of Persian Tweets: A Transformer-Based Approach', area: 'Featured research · NLP', tone: 'teal', indicator: 'Research project', citationCount: 12,
-        summary: 'A hybrid sentiment-analysis architecture in which Naive Bayes and a custom rule-based model produce contextual hints that are appended to the original Persian text before final classification with BERT.',
+        title: 'Distilled BERT Model in Natural Language Processing',
+        area: 'Primary research case · Model efficiency',
+        tone: 'red',
+        indicator: 'Review paper',
+        citationCount: 22,
+        year: 2024,
+        venue: '14th International Conference on Computer and Knowledge Engineering (ICCKE)',
+        pages: '243–250',
+        authorRole: 'First author · Bachelor thesis research',
+        doi: '10.1109/ICCKE65377.2024.10874673',
+        doiUrl: 'https://doi.org/10.1109/ICCKE65377.2024.10874673',
+        summary: 'A review of compact BERT models and the tradeoffs behind knowledge distillation.',
+        problem: 'Language models can be too computationally and memory intensive for constrained devices.',
+        approach: 'Compared TinyBERT, DistilBERT, MobileBERT, and MiniLM with a focus on their distillation strategies.',
+        contribution: 'As first author, I synthesized the research landscape and practical deployment tradeoffs.',
+        result: 'The review clarifies how compact BERT variants trade size and computational cost against retained capability. It has 22 Google Scholar citations.',
+        figure: {
+          src: '/research/distilbert-distillation.png',
+          alt: 'Diagram comparing the BERT base model with the six-layer DistilBERT model and their distillation path',
+          caption: 'DistilBERT distillation process · Figure 4 in the paper, source [61].',
+          width: 760,
+          height: 470,
+        },
+        tags: ['Knowledge distillation', 'Transformers', 'Model efficiency'],
+        url: 'https://ieeexplore.ieee.org/document/10874673',
+      },
+      {
+        title: 'Enhancing Sentiment Analysis of Persian Tweets: A Transformer-Based Approach', area: 'Persian NLP', tone: 'teal', indicator: 'Research project', citationCount: 12,
+        summary: 'A hybrid Persian sentiment model adds hints from Naive Bayes and rule-based analysis before BERT classification.',
         contribution: 'I contributed to the model design and directly to writing the paper.',
         result: 'The proposed model reported approximately 89% accuracy, compared with 86% for BERT alone.',
         tags: ['Persian NLP', 'BERT', 'Hybrid models'],
         url: 'https://ieeexplore.ieee.org/document/10533353/',
       },
-      {
-        title: 'Distilled BERT Model in Natural Language Processing', area: 'Bachelor thesis · Review paper', tone: 'red', indicator: 'Review paper', citationCount: 22,
-        summary: 'A research review of NLP model evolution with emphasis on knowledge distillation and the efficiency-performance tradeoffs of TinyBERT, DistilBERT, MobileBERT, and MiniLM.',
-        contribution: 'My work centered on reviewing the research landscape, comparing compact Transformer models, and synthesizing deployment tradeoffs.',
-        result: 'The paper examines how compact models reduce compute and deployment footprint while retaining useful language capabilities.',
-        tags: ['Knowledge distillation', 'Transformers', 'Model efficiency'],
-        url: 'https://ieeexplore.ieee.org/document/10874673',
-      },
     ] satisfies PublicationEntry[],
     all: [
       { title: 'AI-driven Approaches for Dysgraphia Diagnosis Using Online and Offline Handwriting Data', area: 'Healthcare AI / Handwriting', summary: 'Multimodal handwriting analysis for dysgraphia diagnosis.', tone: 'sand', tags: ['Healthcare AI'], citationCount: 3, indicator: 'Published', url: 'https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0328722' },
-      { title: 'Revolutionizing Dysgraphia Detection: Combining Feature Fusion with Non-Discriminatory Regularization', area: 'Healthcare AI / Model Design', summary: 'Feature fusion and neural ensemble research for dysgraphia classification.', tone: 'slate', tags: ['Feature fusion'], citationCount: 3, indicator: 'Published', url: 'https://ieeexplore.ieee.org/document/11006233' },
+      {
+        title: 'Revolutionizing Dysgraphia Detection: Combining Feature Fusion with Non-Discriminatory Regularization',
+        area: 'Healthcare AI / Model Design',
+        summary: 'Feature fusion and neural ensemble research for dysgraphia classification.',
+        tone: 'slate',
+        tags: ['Feature fusion'],
+        citationCount: 3,
+        indicator: 'Published',
+        url: 'https://ieeexplore.ieee.org/document/11006233',
+        figure: {
+          src: '/research/dysgraphia-model.png',
+          alt: 'Designed dysgraphia model combining extracted handwriting features, non-discriminatory regularization, SVM classifiers, and a final neural network or soft-voting stage',
+          caption: 'Designed dysgraphia classification pipeline · Figure 5 in the paper.',
+          width: 1320,
+          height: 500,
+        },
+      },
       { title: 'An Approach to Accurate Recognition of Emotions through Speech-to-Image Signal Conversion and Deep CNNs', area: 'Speech Emotion Recognition', summary: 'Image-based representation learning for speech emotion recognition.', tone: 'teal', tags: ['Speech emotion'], citationCount: 0, indicator: 'Published', url: 'https://link.springer.com/article/10.1007/s11042-025-20956-2' },
       { title: 'A Comprehensive Comparison of Various Drug Synergy Score Prediction Methods', area: 'Biomedical ML', summary: 'A comparative study of drug synergy prediction methods.', tone: 'red', tags: ['Biomedical ML'], citationCount: 0, indicator: 'Published', url: 'https://doi.org/10.1109/ICRoM60803.2023.10412510' },
       { title: 'Cross-Corpus Speech Emotion Recognition Using a Three-Dimensional CNN with Gray Wolf Optimizer', area: 'Speech Emotion Recognition', summary: 'Cross-corpus speech emotion recognition using 3D CNNs and optimization.', tone: 'sand', tags: ['3D CNN'], citationCount: 0, indicator: 'Submitted', ctaLabel: 'Submitted' },
@@ -165,15 +231,15 @@ export const profile = {
     title: 'Engineering, with a research habit.',
     subtitle: 'I am most useful where a system has history, constraints, and a difficult next step.',
     paragraphs: [
-      'I am a full-stack software engineer based in Vienna. My current work focuses on modernizing mature enterprise software: understanding the behavior people already rely on, finding the right technical boundary, and introducing change in stages.',
-      'Research gives me a complementary way of thinking. It taught me to compare alternatives carefully, make assumptions explicit, and treat evaluation as part of the design—not an afterthought.',
-      'Across both settings, I am drawn to the same kind of problem: making complex systems easier to evolve without losing the reliability they have earned.',
+      'I am a Vienna-based full-stack engineer focused on modernizing mature enterprise software in deliberate, reliable steps.',
+      'Research taught me to compare alternatives, state assumptions, and treat evaluation as part of design.',
+      'I am drawn to systems with history, constraints, and a difficult next step.',
     ],
     metrics: [], cards: [],
   },
   researchInterests: [],
   contact: {
-    summary: 'I am exploring software engineering opportunities in full-stack, backend, Java/Spring, distributed systems, and platform engineering. I am also open to exceptional research opportunities in IR, NLP, and machine learning.',
+    summary: 'Open to relevant full-stack, backend, Java, platform, distributed-systems, and research-informed AI/ML roles—primarily in Vienna, and selectively elsewhere in Austria and Europe.',
     socials: [
       { label: 'LinkedIn', href: 'https://www.linkedin.com/in/yazdanzv/', icon: 'linkedin' },
       { label: 'GitHub', href: 'https://github.com/yazdanzv', icon: 'github' },

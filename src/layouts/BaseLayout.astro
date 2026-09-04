@@ -20,8 +20,9 @@ const {
   robots = 'index,follow,max-image-preview:large',
 } = Astro.props as Props;
 
+const resolveAssetPath = (value: string) => `${import.meta.env.BASE_URL}${value.replace(/^\/+/, '')}`;
 const resolveAssetUrl = (value: string) =>
-  new URL(`${import.meta.env.BASE_URL}${value.replace(/^\/+/, '')}`, Astro.site ?? Astro.url.origin).href;
+  new URL(resolveAssetPath(value), Astro.site ?? Astro.url.origin).href;
 const canonical = new URL(Astro.url.pathname, profile.seo.siteUrl).href;
 const imageUrl = image.startsWith('http') ? image : resolveAssetUrl(image);
 const jsonLd = JSON.stringify(
@@ -85,14 +86,15 @@ const jsonLd = JSON.stringify(
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="color-scheme" content="dark" />
-    <meta name="theme-color" content="#101312" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f5f2ea" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#101312" media="(prefers-color-scheme: dark)" />
     <meta name="robots" content={robots} />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" href={resolveAssetUrl('/favicon.svg')} type="image/svg+xml" />
-    <link rel="sitemap" href={resolveAssetUrl('/sitemap-index.xml')} />
+    <link rel="icon" href={resolveAssetPath('/favicon.svg')} type="image/svg+xml" />
+    <link rel="sitemap" href={resolveAssetPath('/sitemap-index.xml')} />
     <meta property="og:type" content="profile" />
     <meta property="og:site_name" content={profile.name} />
     <meta property="og:title" content={title} />
@@ -105,6 +107,18 @@ const jsonLd = JSON.stringify(
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={imageUrl} />
     <meta name="twitter:image:alt" content={profile.name} />
+    <script is:inline>
+      (() => {
+        try {
+          const storedTheme = window.localStorage.getItem('yazdan-color-theme');
+          if (storedTheme === 'light' || storedTheme === 'dark') {
+            document.documentElement.dataset.theme = storedTheme;
+          }
+        } catch {
+          // Follow the system appearance when storage is unavailable.
+        }
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
     <link

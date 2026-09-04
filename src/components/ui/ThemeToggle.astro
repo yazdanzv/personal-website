@@ -1,0 +1,51 @@
+---
+import { icons } from '../../lib/icons';
+---
+
+<button
+  type="button"
+  data-theme-toggle
+  class="flex h-11 w-11 shrink-0 items-center justify-center border border-line/25 text-ink-100 transition hover:border-accent-300 hover:text-accent-300"
+  aria-label="Change color theme"
+  title="Change color theme"
+>
+  <span class="theme-icon theme-icon-moon size-5" set:html={icons.moon}></span>
+  <span class="theme-icon theme-icon-sun size-5" set:html={icons.sun}></span>
+</button>
+
+<script>
+  const themeKey = 'yazdan-color-theme';
+  const themeToggle = document.querySelector('[data-theme-toggle]');
+  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+  const currentTheme = () => {
+    const explicitTheme = document.documentElement.dataset.theme;
+    if (explicitTheme === 'light' || explicitTheme === 'dark') return explicitTheme;
+    return systemTheme.matches ? 'dark' : 'light';
+  };
+
+  const updateThemeToggle = () => {
+    if (!(themeToggle instanceof HTMLButtonElement)) return;
+    const theme = currentTheme();
+    const nextTheme = theme === 'dark' ? 'light' : 'dark';
+    themeToggle.setAttribute('aria-label', `Switch to ${nextTheme} theme`);
+    themeToggle.setAttribute('title', `Switch to ${nextTheme} theme`);
+    themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
+  };
+
+  if (themeToggle instanceof HTMLButtonElement) {
+    themeToggle.addEventListener('click', () => {
+      const nextTheme = currentTheme() === 'dark' ? 'light' : 'dark';
+      document.documentElement.dataset.theme = nextTheme;
+      try {
+        window.localStorage.setItem(themeKey, nextTheme);
+      } catch {
+        // The theme still applies for the current page if storage is unavailable.
+      }
+      updateThemeToggle();
+    });
+  }
+
+  systemTheme.addEventListener('change', updateThemeToggle);
+  updateThemeToggle();
+</script>

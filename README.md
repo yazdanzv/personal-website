@@ -1,13 +1,14 @@
 # Yazdan Zandiye Vakili Portfolio
 
-Engineering-first personal portfolio built with Astro, Tailwind CSS, and TypeScript.
+Research-led personal portfolio built with Astro, Tailwind CSS, and TypeScript.
 
 ## Features
 
-- Restrained editorial design built around an engineering field-notes theme
-- Original diagrams for evolutionary architecture and research methods
+- Restrained editorial design built around Yazdan's research and engineering work
+- System-aware light and dark themes with a manual theme switch
 - Authentic professional photography and responsive layouts
-- Engineering case studies focused on enterprise modernization and distributed systems
+- A primary publication case study backed by public venue, DOI, and citation evidence
+- Concise engineering notes focused on enterprise modernization and distributed systems
 - SEO metadata, Open Graph, Twitter cards, structured data, sitemap, and robots.txt
 - Current software-engineering résumé download
 - Contact form with persistent message storage via Supabase
@@ -47,11 +48,11 @@ The contact form stores submissions in Supabase, and the private inbox lives at 
 2. Run the SQL in `supabase/schema.sql` in the Supabase SQL editor.
 3. Create and confirm an email/password Supabase Auth user with the admin email you want to use.
 4. Set these public build variables in your local environment and GitHub repository variables:
-   - `PUBLIC_SUPABASE_URL`
+   - `PUBLIC_SUPABASE_URL` (`https://cjtjvhtubrdomvjikcfa.supabase.co` for the current project)
    - `PUBLIC_SUPABASE_ANON_KEY`
 5. Open `/admin/messages`, sign in with the admin account, and review the stored messages.
 
-The site will still build without the variables, but the chat widget will show a setup notice until Supabase is configured.
+The site will still build without the variables, but the contact form will show a setup notice until Supabase is configured. Never commit a service-role key or copy an anon key from another project.
 
 ## GitHub Pages Deployment
 

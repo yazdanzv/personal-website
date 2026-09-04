@@ -9,9 +9,10 @@ import { profile } from '../../config/profile';
       <h2 class="mt-6 text-5xl font-medium text-ink-100 md:text-7xl">Let’s talk.</h2>
       <p class="mt-7 max-w-xl text-lg leading-8 text-ink-300">{profile.contact.summary}</p>
       <div class="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm">
-        <a href={profile.links.linkedin} target="_blank" rel="noreferrer" class="border-b border-white/25 pb-1 text-ink-200 hover:border-accent-300 hover:text-accent-300">LinkedIn</a>
-        <a href={profile.links.github} target="_blank" rel="noreferrer" class="border-b border-white/25 pb-1 text-ink-200 hover:border-accent-300 hover:text-accent-300">GitHub</a>
-        <a href={profile.links.scholar} target="_blank" rel="noreferrer" class="border-b border-white/25 pb-1 text-ink-200 hover:border-accent-300 hover:text-accent-300">Google Scholar</a>
+        <a href={`mailto:${profile.email}`} class="tap-target inline-flex items-center border-b border-line/30 text-ink-200 hover:border-accent-300 hover:text-accent-300">Email</a>
+        <a href={profile.links.linkedin} target="_blank" rel="noreferrer" class="tap-target inline-flex items-center border-b border-line/30 text-ink-200 hover:border-accent-300 hover:text-accent-300">LinkedIn</a>
+        <a href={profile.links.github} target="_blank" rel="noreferrer" class="tap-target inline-flex items-center border-b border-line/30 text-ink-200 hover:border-accent-300 hover:text-accent-300">GitHub</a>
+        <a href={profile.links.scholar} target="_blank" rel="noreferrer" class="tap-target inline-flex items-center border-b border-line/30 text-ink-200 hover:border-accent-300 hover:text-accent-300">Google Scholar</a>
       </div>
     </div>
 
@@ -19,23 +20,23 @@ import { profile } from '../../config/profile';
       <div class="grid gap-5 sm:grid-cols-2">
         <label class="grid gap-2">
           <span class="font-mono text-[10px] uppercase tracking-[0.15em] text-ink-400">Name</span>
-          <input name="name" type="text" required maxlength="100" autocomplete="name" class="border border-white/15 bg-surface-950 px-4 py-3 text-base text-ink-100 outline-none transition placeholder:text-ink-400 focus:border-accent-300" placeholder="Your name" />
+          <input name="name" type="text" required maxlength="100" autocomplete="name" class="min-h-11 border border-line/25 bg-surface-950 px-4 py-3 text-base text-ink-100 outline-none transition placeholder:text-ink-400 focus:border-accent-300" placeholder="Your name" />
         </label>
         <label class="grid gap-2">
           <span class="font-mono text-[10px] uppercase tracking-[0.15em] text-ink-400">Email</span>
-          <input name="email" type="email" required maxlength="254" autocomplete="email" class="border border-white/15 bg-surface-950 px-4 py-3 text-base text-ink-100 outline-none transition placeholder:text-ink-400 focus:border-accent-300" placeholder="you@example.com" />
+          <input name="email" type="email" required maxlength="254" autocomplete="email" class="min-h-11 border border-line/25 bg-surface-950 px-4 py-3 text-base text-ink-100 outline-none transition placeholder:text-ink-400 focus:border-accent-300" placeholder="you@example.com" />
         </label>
       </div>
       <label class="mt-5 grid gap-2">
         <span class="font-mono text-[10px] uppercase tracking-[0.15em] text-ink-400">Message</span>
-        <textarea name="message" rows="6" required minlength="10" maxlength="4000" class="resize-y border border-white/15 bg-surface-950 px-4 py-3 text-base text-ink-100 outline-none transition placeholder:text-ink-400 focus:border-accent-300" placeholder="Tell me about the role, project, or research idea."></textarea>
+        <textarea name="message" rows="6" required minlength="10" maxlength="4000" class="resize-y border border-line/25 bg-surface-950 px-4 py-3 text-base text-ink-100 outline-none transition placeholder:text-ink-400 focus:border-accent-300" placeholder="Tell me about the role, project, or research idea."></textarea>
       </label>
       <label class="absolute -left-[9999px]" aria-hidden="true">
         <span>Website</span><input name="website" type="text" tabindex="-1" autocomplete="off" />
       </label>
       <div class="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <p data-contact-status class="min-h-6 text-sm text-ink-400" aria-live="polite"></p>
-        <button type="submit" data-contact-submit class="inline-flex items-center justify-center border border-paper bg-paper px-6 py-3 text-sm font-medium text-surface-950 transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-50">Send message</button>
+        <button type="submit" data-contact-submit class="inline-flex min-h-11 items-center justify-center border border-paper bg-paper px-6 py-2 text-sm font-medium text-surface-950 transition hover:bg-paper/85 disabled:cursor-not-allowed disabled:opacity-50">Send message</button>
       </div>
     </form>
   </div>
@@ -56,7 +57,7 @@ import { profile } from '../../config/profile';
 
     if (!configured && submit instanceof HTMLButtonElement) {
       submit.disabled = true;
-      setStatus('The form is temporarily unavailable. Please contact me on LinkedIn.', 'error');
+      setStatus('The form is temporarily unavailable. Please use email or LinkedIn.', 'error');
     }
 
     if (form instanceof HTMLFormElement) {
@@ -102,7 +103,7 @@ import { profile } from '../../config/profile';
           form.reset();
           setStatus('Message sent. Thank you—I’ll get back to you soon.', 'success');
         } catch {
-          setStatus('Your message was not sent. Please try again or contact me on LinkedIn.', 'error');
+          setStatus('Your message was not sent. Your text is still here—please try again, or use email or LinkedIn.', 'error');
         } finally {
           submit.disabled = false;
           submit.removeAttribute('aria-busy');

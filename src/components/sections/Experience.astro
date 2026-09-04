@@ -5,16 +5,16 @@ import { profile } from '../../config/profile';
 <section id="experience" class="section-rule py-20 md:py-28">
   <div class="page-shell">
     <header class="grid gap-6 lg:grid-cols-[0.35fr_1fr]" data-reveal>
-      <p class="section-index">02 · Experience</p>
+      <p class="section-index">01 · Experience</p>
       <div>
         <h2 class="text-4xl font-medium text-ink-100 md:text-6xl">Experience</h2>
-        <p class="mt-5 max-w-2xl text-lg leading-8 text-ink-300">The case studies above show the technical depth. This timeline keeps the career context concise.</p>
+        <p class="mt-5 max-w-2xl text-lg leading-8 text-ink-300">Production roles across enterprise software, mentoring, and financial systems.</p>
       </div>
     </header>
 
-    <div class="mt-14 border-t border-white/15">
+    <div class="mt-14 border-t border-line/20">
       {profile.experience.map((entry, index) => (
-        <article class="grid gap-5 border-b border-white/15 py-8 md:grid-cols-[0.7fr_1.3fr] md:py-10" data-reveal style={`--reveal-delay:${index * 70}ms`}>
+        <article class="grid gap-5 border-b border-line/20 py-8 md:grid-cols-[0.7fr_1.3fr] md:py-10" data-reveal style={`--reveal-delay:${index * 70}ms`}>
           <div>
             <p class="font-mono text-[11px] uppercase tracking-[0.15em] text-accent-300">{entry.period}</p>
             <p class="mt-3 text-sm text-ink-400">{entry.location}</p>
