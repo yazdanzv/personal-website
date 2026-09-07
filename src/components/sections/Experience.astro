@@ -1,5 +1,7 @@
 ---
-import { profile } from '../../config/profile';
+import { profile, type ExperienceEntry } from '../../config/profile';
+
+const experienceEntries: readonly ExperienceEntry[] = profile.experience;
 ---
 
 <section id="experience" class="section-rule py-20 md:py-28">
@@ -13,7 +15,7 @@ import { profile } from '../../config/profile';
     </header>
 
     <div class="mt-14 border-t border-line/20">
-      {profile.experience.map((entry, index) => (
+      {experienceEntries.map((entry, index) => (
         <article class="grid gap-5 border-b border-line/20 py-8 md:grid-cols-[0.7fr_1.3fr] md:py-10" data-reveal style={`--reveal-delay:${index * 70}ms`}>
           <div>
             <p class="font-mono text-[11px] uppercase tracking-[0.15em] text-accent-300">{entry.period}</p>
@@ -23,6 +25,16 @@ import { profile } from '../../config/profile';
             <p class="text-sm font-medium text-signal">{entry.company}</p>
             <h3 class="mt-2 text-2xl font-medium text-ink-100 md:text-3xl">{entry.role}</h3>
             <p class="mt-5 max-w-3xl text-base leading-8 text-ink-300">{entry.summary}</p>
+            {entry.metrics && entry.metrics.length > 0 && (
+              <dl class="mt-6 grid grid-cols-2 border-y border-line/20 sm:grid-cols-4">
+                {entry.metrics.map((metric) => (
+                  <div class="border-line/20 px-3 py-4 even:border-l [&:nth-child(n+3)]:border-t sm:border-l sm:first:border-l-0 sm:[&:nth-child(n+3)]:border-t-0">
+                    <dt class="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-400">{metric.label}</dt>
+                    <dd class="mt-2 text-base font-medium text-ink-100">{metric.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            )}
             <div class="mt-5 flex flex-wrap gap-x-4 gap-y-2">
               {entry.technologies.map((technology) => <span class="font-mono text-[11px] text-ink-400">{technology}</span>)}
             </div>

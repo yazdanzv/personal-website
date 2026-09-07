@@ -4,7 +4,8 @@ export interface NavLink { label: string; href: string; }
 export interface ActionLink { label: string; href: string; variant?: 'primary' | 'secondary' | 'ghost'; icon?: 'download' | 'arrow' | 'spark' | 'external'; external?: boolean; download?: boolean; }
 export interface SocialLink { label: string; href: string; icon: 'github' | 'linkedin' | 'scholar' | 'mail'; }
 export interface Stat { label: string; value: string; }
-export interface ExperienceEntry { company: string; role: string; period: string; location: string; summary: string | string[]; technologies: string[]; tone: AccentTone; }
+export interface ExperienceMetric { value: string; label: string; }
+export interface ExperienceEntry { company: string; role: string; period: string; location: string; summary: string | string[]; metrics?: ExperienceMetric[]; technologies: string[]; tone: AccentTone; }
 export interface PublicationEntry {
   title: string;
   area: string;
@@ -75,7 +76,7 @@ export const profile = {
     focus: ['Enterprise modernization', 'Distributed systems', 'Java & Spring', 'System design'],
     stats: [
       { label: 'Publications', value: '6+' },
-      { label: 'Citations', value: '40' },
+      { label: 'Citations', value: '41' },
       { label: 'h-index', value: '3' },
     ] satisfies Stat[],
     primaryActions: [
@@ -98,18 +99,18 @@ export const profile = {
   },
   engineeringCases: [
     {
-      number: '01', title: 'Enterprise modernization', tone: 'teal',
-      summary: 'Establishing a modern foundation before asking the rest of the platform to move.',
-      problem: 'A mature enterprise application needed a path beyond an aging runtime and framework stack.',
-      approach: 'Migrated Java 8 to Java 17, creating the technical foundation required for later framework upgrades, including Hibernate 6.',
-      outcome: 'The platform could evolve in deliberate stages instead of through a single high-risk rewrite.',
-      technologies: ['Java 17', 'Spring', 'Hibernate 6', 'Migration strategy'],
+      number: '01', title: 'Platform modernization at scale', tone: 'teal',
+      summary: 'Staged upgrades across 130 Maven projects and approximately 1.3 million lines of production Java.',
+      problem: 'A large HR platform needed coordinated runtime, framework, persistence, and search upgrades without destabilizing existing product modules.',
+      approach: 'Contributed to Java 11 → 17, Spring 5.2 → 5.3, Hibernate 5.1 → 5.6, and Hibernate Search 5 → 6 compatibility work.',
+      outcome: 'Each compatibility step removed blockers for later modernization work, including the path toward Hibernate 6.',
+      technologies: ['Java 11 → 17', 'Spring 5.2 → 5.3', 'Hibernate 5.1 → 5.6', 'Hibernate Search 5 → 6'],
     },
     {
       number: '02', title: 'Distributed caching', tone: 'red',
       summary: 'A new cache architecture designed to coexist with the legacy one during migration.',
       problem: 'Modern Hibernate adoption required a distributed cache while existing components still depended on Ehcache 2.',
-      approach: 'Designed Caffeine L1 and Redis L2 caching with cross-node invalidation, JCache/Hibernate integration, and composite cache management.',
+      approach: 'Designed and implemented Caffeine L1 and Redis L2 caching with Pub/Sub invalidation and cross-node coherence across multiple product modules.',
       outcome: 'Modern caches and Ehcache 2 could operate side by side while migration progressed incrementally.',
       technologies: ['Caffeine', 'Redis', 'JCache', 'Cross-node invalidation'],
     },
@@ -122,19 +123,41 @@ export const profile = {
       technologies: ['Rule processing', 'Transactions', 'Domain modeling', 'Traceability'],
     },
     {
-      number: '04', title: 'Migration & integration', tone: 'slate',
-      summary: 'Clean boundaries that let old and new interfaces operate during long-running change.',
-      problem: 'UI, kiosk, and localization systems needed to evolve without interrupting established workflows.',
-      approach: 'Used UI-neutral contracts and Flow adapters for Vaadin migration, durable UTC batches for offline replay, and parent-child localization with fallback.',
-      outcome: 'Each subsystem gained a controlled transition path with compatibility, duplicate protection, and clear ownership of behavior.',
-      technologies: ['Vaadin 7 → 23', 'Offline sync', 'Localization', 'Adapters'],
+      number: '04', title: 'UI decoupling & Vaadin migration', tone: 'slate',
+      summary: 'Separating business behavior from a legacy UI so both can evolve independently.',
+      problem: 'HR-Expert business logic was coupled to Vaadin 8, blocking the move to Vaadin 23 and later persistence upgrades.',
+      approach: 'Redesigned HR-Expert around UI-neutral contracts and adapters. Currently migrating functionality to Vaadin 23 while preserving existing business behavior.',
+      outcome: 'The new boundary removes UI constraints from the broader modernization path toward Hibernate 6.',
+      technologies: ['Vaadin 8 → 23', 'UI-neutral contracts', 'Adapters', 'Hibernate 6 readiness'],
+    },
+    {
+      number: '05', title: 'Offline kiosk synchronization', tone: 'red',
+      summary: 'Keeping workplace kiosks useful through network outages.',
+      problem: 'Kiosks needed to record data while disconnected without losing or duplicating accumulated events.',
+      approach: 'Implemented offline collection and asynchronous synchronization after reconnection using durable UTC batches and duplicate protection.',
+      outcome: 'Kiosks continue collecting data offline and replay accumulated records when connectivity returns.',
+      technologies: ['Offline-first', 'Async synchronization', 'UTC', 'Duplicate protection'],
+    },
+    {
+      number: '06', title: 'Localization architecture', tone: 'sand',
+      summary: 'Reducing duplicated translations while preserving regional and customer terminology.',
+      problem: 'Separate text modules made language maintenance repetitive across products and DACH markets.',
+      approach: 'Designed a parent-child localization model with fallback, merged language exports, and selective overrides.',
+      outcome: 'Shared translations stay centralized while regions and customers can retain their own terminology.',
+      technologies: ['Translation fallback', 'Selective overrides', 'Merged exports', 'DACH markets'],
     },
   ],
   experience: [
     {
       company: 'Workflow GmbH', role: 'Software Engineer · Previously Software Engineering Intern', period: 'Sep 2024 – Present', location: 'Vienna, Austria', tone: 'teal',
-      summary: 'Modernizing a mature enterprise platform across Java, persistence, caching, UI, synchronization, and localization—with hands-on implementation and technical ownership.',
-      technologies: ['Java', 'Spring Boot', 'Hibernate / JPA', 'Redis', 'Vaadin', 'SQL'],
+      summary: 'Modernizing a 130-project Maven monorepo with approximately 1.3 million lines of production Java, spanning runtime, framework, persistence, distributed caching, UI, and synchronization architecture.',
+      metrics: [
+        { value: '130', label: 'Maven projects' },
+        { value: '~1.3M', label: 'lines of production Java' },
+        { value: 'Java 11 → 17', label: 'runtime upgrade' },
+        { value: 'Vaadin 8 → 23', label: 'UI migration' },
+      ],
+      technologies: ['Java', 'Spring Boot', 'Hibernate / JPA', 'Redis & Caffeine', 'Vaadin', 'PostgreSQL / SQL Server / MySQL', 'Docker / Jenkins / Grafana'],
     },
     {
       company: 'Karyar College', role: 'Programming Mentor & Course Supervisor', period: 'Jul 2020 – Oct 2024', location: 'Tehran, Iran', tone: 'sand',
@@ -205,14 +228,14 @@ export const profile = {
           height: 500,
         },
       },
-      { title: 'An Approach to Accurate Recognition of Emotions through Speech-to-Image Signal Conversion and Deep CNNs', area: 'Speech Emotion Recognition', summary: 'Image-based representation learning for speech emotion recognition.', tone: 'teal', tags: ['Speech emotion'], citationCount: 0, indicator: 'Published', url: 'https://link.springer.com/article/10.1007/s11042-025-20956-2' },
+      { title: 'An Approach to Accurate Recognition of Emotions through Speech-to-Image Signal Conversion and Deep CNNs', area: 'Speech Emotion Recognition', summary: 'Image-based representation learning for speech emotion recognition.', tone: 'teal', tags: ['Speech emotion'], citationCount: 1, indicator: 'Published', url: 'https://link.springer.com/article/10.1007/s11042-025-20956-2' },
       { title: 'A Comprehensive Comparison of Various Drug Synergy Score Prediction Methods', area: 'Biomedical ML', summary: 'A comparative study of drug synergy prediction methods.', tone: 'red', tags: ['Biomedical ML'], citationCount: 0, indicator: 'Published', url: 'https://doi.org/10.1109/ICRoM60803.2023.10412510' },
       { title: 'Cross-Corpus Speech Emotion Recognition Using a Three-Dimensional CNN with Gray Wolf Optimizer', area: 'Speech Emotion Recognition', summary: 'Cross-corpus speech emotion recognition using 3D CNNs and optimization.', tone: 'sand', tags: ['3D CNN'], citationCount: 0, indicator: 'Submitted', ctaLabel: 'Submitted' },
       { title: 'Combining Minimum Spanning Tree and Label Propagation for Robust Pathway Enrichment', area: 'Graph Learning / Bioinformatics', summary: 'Graph-based pathway enrichment using minimum spanning trees and label propagation.', tone: 'slate', tags: ['Bioinformatics'], citationCount: 0, indicator: 'Submitted', ctaLabel: 'Submitted' },
     ] satisfies PublicationEntry[],
   },
   publications: {
-    stats: [{ label: 'Publications', value: '6+' }, { label: 'Citations', value: '40' }, { label: 'h-index', value: '3' }] satisfies Stat[],
+    stats: [{ label: 'Publications', value: '6+' }, { label: 'Citations', value: '41' }, { label: 'h-index', value: '3' }] satisfies Stat[],
     featured: [] as PublicationEntry[],
   },
   skills: [
