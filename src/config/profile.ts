@@ -76,8 +76,8 @@ export const profile = {
     focus: ['Enterprise modernization', 'Distributed systems', 'Java & Spring', 'System design'],
     stats: [
       { label: 'Publications', value: '6+' },
-      { label: 'Citations', value: '41' },
-      { label: 'h-index', value: '3' },
+      { label: 'Citations', value: '44' },
+      { label: 'h-index', value: '4' },
     ] satisfies Stat[],
     primaryActions: [
       { label: 'Download résumé', href: 'cv.pdf', variant: 'primary', icon: 'download', download: true },
@@ -210,14 +210,14 @@ export const profile = {
       },
     ] satisfies PublicationEntry[],
     all: [
-      { title: 'AI-driven Approaches for Dysgraphia Diagnosis Using Online and Offline Handwriting Data', area: 'Healthcare AI / Handwriting', summary: 'Multimodal handwriting analysis for dysgraphia diagnosis.', tone: 'sand', tags: ['Healthcare AI'], citationCount: 3, indicator: 'Published', url: 'https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0328722' },
+      { title: 'AI-driven Approaches for Dysgraphia Diagnosis Using Online and Offline Handwriting Data', area: 'Healthcare AI / Handwriting', summary: 'Multimodal handwriting analysis for dysgraphia diagnosis.', tone: 'sand', tags: ['Healthcare AI'], citationCount: 5, indicator: 'Published', url: 'https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0328722' },
       {
         title: 'Revolutionizing Dysgraphia Detection: Combining Feature Fusion with Non-Discriminatory Regularization',
         area: 'Healthcare AI / Model Design',
         summary: 'Feature fusion and neural ensemble research for dysgraphia classification.',
         tone: 'slate',
         tags: ['Feature fusion'],
-        citationCount: 3,
+        citationCount: 4,
         indicator: 'Published',
         url: 'https://ieeexplore.ieee.org/document/11006233',
         figure: {
@@ -235,7 +235,7 @@ export const profile = {
     ] satisfies PublicationEntry[],
   },
   publications: {
-    stats: [{ label: 'Publications', value: '6+' }, { label: 'Citations', value: '41' }, { label: 'h-index', value: '3' }] satisfies Stat[],
+    stats: [{ label: 'Publications', value: '6+' }, { label: 'Citations', value: '44' }, { label: 'h-index', value: '4' }] satisfies Stat[],
     featured: [] as PublicationEntry[],
   },
   skills: [
